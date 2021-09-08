@@ -36,31 +36,32 @@ In dev mode use vars from example file.
 
 ```bash
 # build all
-$ npm run build:all
+$ yarn run build:all
 
 # start db (dev)
-$ npm run start:dev-db
+$ yarn run start:dev-db
 
 # api microservice (dev)
-$ npm run start:api
+$ yarn run start:api
 
 # aggregator microservice (dev)
-$ npm run start:agg
+$ yarn run start:agg
 
 # production bare metal mode
 # (configure .env)
-$ npm run start:prod:api
-$ npm run start:prod:agg
+$ yarn run start:prod:api
+$ yarn run start:prod:agg
 ```
 
 # Tests
 
 ```bash
 # units
-$ npm run test
+$ yarn run test
 
 # e2e
-$ npm run test:e2e:api
+$ yarn run test:e2e:api
+$ yarn run test:e2e:agg
 ```
 
 ## Api
