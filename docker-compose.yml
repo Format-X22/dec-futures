@@ -1,0 +1,23 @@
+version: '2.1'
+services:
+  futures-mongo:
+    container_name: futures-mongo
+    image: mongo
+    restart: always
+    healthcheck:
+      test: mongo --eval 'db.getCollectionNames()'
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    volumes:
+      - futures-mongodb-vol:/data/db
+    ports:
+      - 127.0.0.1:27017:27017
+    networks:
+      - services-tier
+
+volumes:
+  futures-mongodb-vol:
+
+networks:
+  services-tier:
