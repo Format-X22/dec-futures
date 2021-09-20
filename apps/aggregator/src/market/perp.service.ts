@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { AbstractMarket } from '../aggregator.service';
 import { EMarketKey } from '@app/shared/entity.enum';
+import { AbstractMarketService } from './abstract-market.service';
 
 @Injectable()
-export class PerpService implements AbstractMarket {
-    name = EMarketKey.PERP;
+export class PerpService extends AbstractMarketService {
+    public name = EMarketKey.PERP;
+
+    constructor(...args: ConstructorParameters<typeof AbstractMarketService>) {
+        super(...args);
+
+        // TODO -
+    }
 
     async iteration(): Promise<void> {
         // TODO -
