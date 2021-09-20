@@ -21,20 +21,29 @@
     "test:e2e:agg": "jest --config ./apps/aggregator/test/jest-e2e.json"
   },
   "dependencies": {
+    "@dydxprotocol/starkex-lib": "^1.0.5",
+    "@dydxprotocol/v3-client": "^1.3.1",
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^7.6.15",
     "@nestjs/graphql": "^9.0.4",
     "@nestjs/mongoose": "^8.0.1",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/schedule": "^1.0.1",
+    "@perp/cli": "^0.2.6",
+    "@perp/contract": "^2.2.2",
     "apollo-server-express": "^3.3.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "cross-fetch": "^3.1.4",
+    "ethers": "^5.4.7",
     "graphql": "^15.5.3",
-    "mongoose": "^6.0.5",
+    "mongoose": "^6.0.7",
+    "promise": "^8.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "sleep-promise": "^9.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",

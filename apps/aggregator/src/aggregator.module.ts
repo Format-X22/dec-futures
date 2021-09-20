@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AggregatorService } from './aggregator.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { DxDyService } from './market/dxdy.service';
+import { PerpService } from './market/perp.service';
 
 @Module({
     imports: [
@@ -18,6 +20,6 @@ import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
         }),
     ],
     controllers: [],
-    providers: [AggregatorService],
+    providers: [AggregatorService, DxDyService, PerpService],
 })
 export class AggregatorModule {}
