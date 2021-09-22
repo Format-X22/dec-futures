@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ApiController } from './api.controller';
-import { ApiService } from './api.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
-import { PingResolver } from './ping/ping.resolver';
+import { FundingResolver } from './funding/funding.resolver';
+import { FundingService } from './funding/funding.service';
+import { Funding, FundingSchema } from '@app/shared/funding.schema';
 
 @Module({
     imports: [
@@ -19,12 +19,13 @@ import { PingResolver } from './ping/ping.resolver';
             }),
             inject: [ConfigService],
         }),
+        MongooseModule.forFeature([{ name: Funding.name, schema: FundingSchema }]),
         GraphQLModule.forRoot({
             installSubscriptionHandlers: true,
             autoSchemaFile: true,
         }),
     ],
-    controllers: [ApiController],
-    providers: [ApiService, PingResolver],
+    controllers: [],
+    providers: [FundingService, FundingResolver],
 })
 export class ApiModule {}
