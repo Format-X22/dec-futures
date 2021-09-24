@@ -23,6 +23,7 @@ import { Funding, FundingSchema } from '@app/shared/funding.schema';
         GraphQLModule.forRoot({
             installSubscriptionHandlers: true,
             autoSchemaFile: true,
+            path: '/futures',
         }),
     ],
     controllers: [],
