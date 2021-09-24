@@ -18,7 +18,13 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e:api": "jest --config ./apps/api/test/jest-e2e.json",
-    "test:e2e:agg": "jest --config ./apps/aggregator/test/jest-e2e.json"
+    "test:e2e:agg": "jest --config ./apps/aggregator/test/jest-e2e.json",
+    "pm2:start:all:production": "yarn pm2:start:agg:production; yarn pm2:start:api:production;",
+    "pm2:start:api:production": "NODE_ENV=production pm2 stop futures_api; pm2 delete futures_api; pm2 start ecosystem.config.js --only futures_api",
+    "pm2:start:agg:production": "NODE_ENV=production pm2 stop futures_agg; pm2 delete futures_agg; pm2 start ecosystem.config.js --only futures_agg",
+    "pm2:start:all:staging": "yarn pm2:start:agg:staging; yarn pm2:start:api:staging;",
+    "pm2:start:api:staging": "NODE_ENV=production pm2 stop futures_api_staging; pm2 delete futures_api_staging; pm2 start ecosystem.config.js --only futures_api_staging",
+    "pm2:start:agg:staging": "NODE_ENV=production pm2 stop futures_agg_staging; pm2 delete futures_agg_staging; pm2 start ecosystem.config.js --only futures_agg_staging"
   },
   "dependencies": {
     "@dydxprotocol/starkex-lib": "^1.0.5",
