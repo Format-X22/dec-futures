@@ -5,9 +5,11 @@ import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { DxDyService } from './market/dxdy.service';
 import { PerpService } from './market/perp.service';
 import { Funding, FundingSchema } from '@app/shared/funding.schema';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
     imports: [
+        HttpModule,
         ConfigModule.forRoot({
             isGlobal: true,
             cache: true,

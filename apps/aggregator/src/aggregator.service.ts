@@ -29,7 +29,8 @@ export class AggregatorService implements OnModuleInit, OnModuleDestroy {
                     await service.iteration();
                     await sleep(intervalDelay);
                 } catch (error) {
-                    this.logger.error(`Sync error - ${service.name} - ${error}`);
+                    this.logger.error(`Sync error - ${service.name} - ${error}`, error?.stack);
+                    await sleep(intervalDelay);
                 }
             }
         })().catch(/* do noting */);
