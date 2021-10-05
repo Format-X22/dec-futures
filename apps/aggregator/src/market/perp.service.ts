@@ -8,6 +8,9 @@ import request, { gql } from 'graphql-request';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
+import { BigNumber as EthersBigNumber, Contract, providers, Wallet } from 'ethers';
+import * as AmmArtifact from '@perp/contract/build/contracts/src/Amm.sol/Amm.json';
+import * as moment from 'moment';
 
 type TV1TheGraphApiResponse = {
     fundingRateUpdatedEvents: Array<{
@@ -38,19 +41,17 @@ const V1_DECIMALS_DIV = new BigNumber(10).pow(18);
 const V1_QUOTE = 'USDC';
 const V1_DELAY = 1000;
 
+const XDAI_URL = 'https://rpc.xdaichain.com/';
+const XDAI_LAYER_2_PROVIDER = new providers.JsonRpcProvider(XDAI_URL);
+const XDAI_LAYER_2_WALLET = Wallet.createRandom().connect(XDAI_LAYER_2_PROVIDER);
+const ETH_DAY = 24 * 60 * 60;
+
 @Injectable()
 export class PerpService extends AbstractMarketService {
     @Inject()
     private httpService: HttpService;
-
     public name = EMarketKey.PERP;
     private ammToPair: Map<string, string> = new Map();
-
-    constructor(...args: ConstructorParameters<typeof AbstractMarketService>) {
-        super(...args);
-
-        // TODO -
-    }
 
     async iteration(): Promise<void> {
         if (!this.ammToPair.size) {
@@ -64,7 +65,33 @@ export class PerpService extends AbstractMarketService {
     }
 
     private async updateV1NextFunding(): Promise<void> {
-        // TODO -
+        const result: Array<Funding> = [];
+
+        for (const [ammAddress, pair] of this.ammToPair.entries()) {
+            const secondsSinceHour = moment().minutes() * 60;
+            const amm = new Contract(ammAddress, AmmArtifact.abi, XDAI_LAYER_2_WALLET);
+            const [rawTwapPrice]: [EthersBigNumber] = await amm.getTwapPrice(secondsSinceHour);
+            const twap: BigNumber = new BigNumber(rawTwapPrice.toString()).div(V1_DECIMALS_DIV);
+            const [rawUnderlyingTwapPrice]: [EthersBigNumber] = await amm.getUnderlyingTwapPrice(secondsSinceHour);
+            const underlying: BigNumber = new BigNumber(rawUnderlyingTwapPrice.toString()).div(V1_DECIMALS_DIV);
+            const rawFundingPeriod: EthersBigNumber = await amm.fundingPeriod();
+            const rate: number = twap
+                .minus(underlying)
+                .div(underlying)
+                .times(new BigNumber(rawFundingPeriod.toString()).div(ETH_DAY))
+                .times(100)
+                .toNumber();
+
+            result.push({
+                marketKey: EMarketKey.PERP,
+                payDate: moment().startOf('hour').add(1, 'hour').add(1, 'minute').utc().toDate(),
+                base: pair,
+                quote: V1_QUOTE,
+                rate,
+            });
+        }
+
+        await this.saveV1HistoryData(result);
     }
 
     private async updateV1History(): Promise<void> {
