@@ -1,6 +1,22 @@
 import { Abstract, TOrder, TPairAndPaginationArgs, TPairData, TPosition, TTrade } from '@app/stock/abstract';
+import { DydxClient } from '@dydxprotocol/v3-client';
+
+// Fix Web3 types definition error in commonjs mode
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Web3 = require('web3');
+
+const API = 'https://api.dydx.exchange';
 
 export class DyDx extends Abstract {
+    private web3 = new Web3();
+    private client: DydxClient;
+
+    constructor() {
+        super();
+
+        this.client = new DydxClient(API, { web3: this.web3 });
+    }
+
     public async getCurrentPosition({ base, quote }: TPairData): Promise<TPosition | null> {
         // TODO -
         return null;

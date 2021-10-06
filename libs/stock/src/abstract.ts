@@ -63,8 +63,6 @@ export type TTrade = TTradeBasicInfo & {
 };
 
 export abstract class Abstract {
-    constructor(protected market: EMarketKey, protected apiKey?: string) {}
-
     public abstract getCurrentPosition({ base, quote }: TPairData): Promise<TPosition | null>;
     public abstract getMarkPrice({ base, quote }: TPairData): Promise<number>;
     public abstract getIndexPrice({ base, quote }: TPairData): Promise<number>;
