@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { FundingResolver } from './funding/funding.resolver';
 import { FundingService } from './funding/funding.service';
 import { Funding, FundingSchema } from '@app/shared/funding.schema';
+import { FundingController } from './funding/funding.controller';
 
 @Module({
     imports: [
@@ -23,10 +24,11 @@ import { Funding, FundingSchema } from '@app/shared/funding.schema';
         GraphQLModule.forRoot({
             installSubscriptionHandlers: true,
             autoSchemaFile: true,
+            playground: true,
             path: '/futures',
         }),
     ],
-    controllers: [],
+    controllers: [FundingController],
     providers: [FundingService, FundingResolver],
 })
 export class ApiModule {}

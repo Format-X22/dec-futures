@@ -7,6 +7,8 @@ import { makePaginated } from '@app/shared/list.dto';
 @ObjectType()
 @Schema({ versionKey: false })
 export class Funding {
+    _id?: mongoose.Schema.Types.ObjectId | string;
+
     @Field((): typeof EMarketKey => EMarketKey)
     @Prop({ enum: EMarketKey, type: String })
     marketKey: EMarketKey;
