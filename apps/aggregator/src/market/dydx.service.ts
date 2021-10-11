@@ -105,19 +105,26 @@ export class DydxService extends AbstractMarketService {
 
     private async saveHistory(pair: DydxMarket, history: THistory): Promise<void> {
         for (const item of history) {
-            const [base, quote] = pair.split('-');
+            const base = pair.split('-')[0];
+            let quote = pair.split('-')[1];
+
+            if (quote === 'USD') {
+                quote = 'USDC';
+            }
+
+            const query = {
+                marketKey: EMarketKey.DYDX,
+                base,
+                quote,
+                payDate: item.payDate,
+            };
 
             await this.fundingModel.updateOne(
-                {
-                    payDate: item.payDate,
-                },
+                query,
                 {
                     $set: {
+                        ...query,
                         rate: item.rate,
-                        payDate: item.payDate,
-                        marketKey: EMarketKey.DYDX,
-                        base,
-                        quote: quote === 'USD' ? 'USDC' : quote,
                     },
                 },
                 {
