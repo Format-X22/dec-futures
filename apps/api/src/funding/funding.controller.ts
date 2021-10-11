@@ -113,9 +113,9 @@ export class FundingController {
         const dydxLastMax = await dydxCalc(null);
 
         const perpLastDay = await perpCalc(1);
-        const perpLast7Days = await perpCalc(1);
-        const perpLast30Days = await perpCalc(1);
-        const perpLast90Days = await perpCalc(1);
+        const perpLast7Days = await perpCalc(7);
+        const perpLast30Days = await perpCalc(30);
+        const perpLast90Days = await perpCalc(90);
         const perpLastMax = await perpCalc(null);
 
         return `
