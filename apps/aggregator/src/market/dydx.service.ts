@@ -67,6 +67,7 @@ export class DydxService extends AbstractMarketService {
 
     private async syncToLastKnownDate(pair: DydxMarket, date: Date): Promise<void> {
         const history: THistory = [];
+        let prevDate: Date;
         let lastDate: Date | null = null;
 
         const currentMarketData = await this.client.public.getMarkets(pair);
@@ -87,12 +88,20 @@ export class DydxService extends AbstractMarketService {
 
             const isHistoryContainsNotOnlyNextFundingData = history.length > 1;
 
+            prevDate = history[history.length - 1].payDate;
+
             if (isHistoryContainsNotOnlyNextFundingData) {
                 history.pop();
             }
 
-            history.push(...currentHistory);
             lastDate = currentHistory[currentHistory.length - 1].payDate;
+
+            if (prevDate.valueOf() === lastDate.valueOf()) {
+                await this.saveHistory(pair, history);
+                break;
+            }
+
+            history.push(...currentHistory);
 
             if (lastDate <= date) {
                 await this.saveHistory(pair, history);
