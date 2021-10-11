@@ -14,7 +14,7 @@ enum TTimeframe {
     D1 = '1_Day',
 }
 
-@Controller('/')
+@Controller('/futures/simple-demo')
 export class FundingController {
     constructor(@InjectModel(Funding.name) private fundingModel: Model<FundingDocument>) {}
 
