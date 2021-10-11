@@ -148,6 +148,7 @@ export class PerpService extends AbstractMarketService {
                 {
                     marketKey: fundingData.marketKey,
                     base: fundingData.base,
+                    quote: fundingData.quote,
                     payDate: fundingData.payDate,
                 },
                 { $set: { ...fundingData } },
