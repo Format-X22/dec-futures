@@ -52,6 +52,7 @@ export class FundingController {
         }
 
         return `
+            <base href='/futures/simple-demo/'/>
             <style>
                 td {
                     padding: 3px 10px;
@@ -86,6 +87,7 @@ export class FundingController {
     @Get(':pair')
     async choiceTimeframe(@Param('pair') pair: string): Promise<string> {
         return `
+            <base href='/futures/simple-demo/'/>
             <style>
                 li {
                     padding: 5px;
@@ -119,6 +121,7 @@ export class FundingController {
         const perpLastMax = await perpCalc(null);
 
         return `
+            <base href='/futures/simple-demo/'/>
             <style>
                 td {
                     padding: 3px 10px;
