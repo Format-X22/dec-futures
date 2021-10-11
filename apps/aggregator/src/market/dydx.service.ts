@@ -20,8 +20,8 @@ const API = 'https://api.dydx.exchange';
 const API_CALL_DELAY = 1000;
 
 @Injectable()
-export class DxDyService extends AbstractMarketService {
-    public name = EMarketKey.DXDY;
+export class DydxService extends AbstractMarketService {
+    public name = EMarketKey.DYDX;
     private web3 = new Web3();
     private client: DydxClient;
 
@@ -29,6 +29,13 @@ export class DxDyService extends AbstractMarketService {
         super(...args);
 
         this.client = new DydxClient(API, { web3: this.web3 });
+    }
+
+    async onModuleInit(): Promise<void> {
+        const fixedKey = 'DXDY' as EMarketKey;
+
+        await this.fundingModel.updateMany({ marketKey: fixedKey }, { $set: { marketKey: EMarketKey.DYDX } });
+        await this.fundingModel.updateMany({ quote: 'USD' }, { $set: { quote: 'USDC' } });
     }
 
     async iteration(): Promise<void> {
@@ -108,9 +115,9 @@ export class DxDyService extends AbstractMarketService {
                     $set: {
                         rate: item.rate,
                         payDate: item.payDate,
-                        marketKey: EMarketKey.DXDY,
+                        marketKey: EMarketKey.DYDX,
                         base,
-                        quote,
+                        quote: quote === 'USD' ? 'USDC' : quote,
                     },
                 },
                 {

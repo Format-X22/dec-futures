@@ -1,7 +1,7 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum EMarketKey {
-    DXDY = 'DXDY',
+    DYDX = 'DYDX',
     PERP = 'PERP',
 }
 registerEnumType(EMarketKey, { name: 'MarketKey' });

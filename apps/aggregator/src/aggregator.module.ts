@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AggregatorService } from './aggregator.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { DxDyService } from './market/dxdy.service';
+import { DydxService } from './market/dydx.service';
 import { PerpService } from './market/perp.service';
 import { Funding, FundingSchema } from '@app/shared/funding.schema';
 import { HttpModule } from '@nestjs/axios';
@@ -24,6 +24,6 @@ import { HttpModule } from '@nestjs/axios';
         MongooseModule.forFeature([{ name: Funding.name, schema: FundingSchema }]),
     ],
     controllers: [],
-    providers: [AggregatorService, DxDyService, PerpService],
+    providers: [AggregatorService, DydxService, PerpService],
 })
 export class AggregatorModule {}

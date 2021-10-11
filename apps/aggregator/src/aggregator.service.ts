@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import * as sleep from 'sleep-promise';
-import { DxDyService } from './market/dxdy.service';
+import { DydxService } from './market/dydx.service';
 import { PerpService } from './market/perp.service';
 import { AbstractMarketService } from './market/abstract-market.service';
 
@@ -11,7 +11,7 @@ export class AggregatorService implements OnModuleInit, OnModuleDestroy {
     private readonly logger: Logger = new Logger(AggregatorService.name);
     private isDestroyed = false;
 
-    constructor(private dxDyService: DxDyService, private perpService: PerpService) {}
+    constructor(private dxDyService: DydxService, private perpService: PerpService) {}
 
     async onModuleInit(): Promise<void> {
         [this.dxDyService, this.perpService].forEach((service: AbstractMarketService) => this.startSyncLoop(service));
