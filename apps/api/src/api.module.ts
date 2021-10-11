@@ -25,7 +25,7 @@ import { FundingController } from './funding/funding.controller';
             installSubscriptionHandlers: true,
             autoSchemaFile: true,
             playground: true,
-            path: '/futures',
+            path: '/futures/api',
         }),
     ],
     controllers: [FundingController],
