@@ -17,6 +17,12 @@ enum ETimeframe {
 }
 
 const EMPTY = '---';
+const HEAD_LOGO = `
+    <div style='margin-top: 14px'>
+        <img src='https://decommas.io/icons/logo.svg' alt='DeCommas' width='25'/>
+        <div style='display: inline-block; height: 25px; vertical-align: top; margin: 4px 0 0 5px'>DeCommas</div>
+        <hr>
+    </div>`;
 
 @Controller('/futures/simple-demo')
 export class FundingController {
@@ -56,6 +62,7 @@ export class FundingController {
         }
 
         return `
+            <title>DeCommas Futures Funding</title>
             <base href='/futures/simple-demo/'/>
             <style>
                 td {
@@ -63,6 +70,7 @@ export class FundingController {
                     border: 1px solid gainsboro;
                 }
             </style>
+            ${HEAD_LOGO}
             <h1>Next funding</h1>
             <table>
                 <thead>
@@ -94,12 +102,14 @@ export class FundingController {
     @Get(':pair')
     async choiceTimeframe(@Param('pair') pair: string): Promise<string> {
         return `
+            <title>DeCommas Futures Funding</title>
             <base href='/futures/simple-demo/'/>
             <style>
                 li {
                     padding: 5px;
                 }
             </style>
+            ${HEAD_LOGO}
             <h1>Choice timeframe:</h1>
             <ul>
                 <li><a href='${pair}/${ETimeframe.H1}'>${ETimeframe.H1}</a>
@@ -190,6 +200,7 @@ export class FundingController {
         const groupedData = await this.getGroupedHistory(base, quote, timeframe);
 
         return `
+            <title>DeCommas Futures Funding</title>
             <base href='/futures/simple-demo/'/>
             <style>
                 td {
@@ -197,6 +208,7 @@ export class FundingController {
                     border: 1px solid gainsboro;
                 }
             </style>
+            ${HEAD_LOGO}
             <h1>Statistics</h1>
             <h2>Avg:</h2>
             <table>
@@ -214,7 +226,7 @@ export class FundingController {
             <h2>History group by "${timeframe}" chunks:</h2>
             <table>
                 <thead>
-                    <tr><td>Time</td><td>DYDX</td><td>PERP</td></tr>
+                    <tr><td>Time</td><td>DYDX %</td><td>PERP %</td></tr>
                 </thead>
                 <tbody>
                     ${groupedData
