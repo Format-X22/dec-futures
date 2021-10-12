@@ -74,7 +74,7 @@ export class DydxService extends AbstractMarketService {
         const pairData = currentMarketData.markets[pair];
 
         history.push({
-            rate: Number(pairData.nextFundingRate),
+            rate: Number(pairData.nextFundingRate) * 100,
             payDate: new Date(pairData.nextFundingAt),
         });
 
@@ -159,7 +159,7 @@ export class DydxService extends AbstractMarketService {
         const result = await this.client.public.getHistoricalFunding(options);
 
         return result.historicalFunding.map((item) => ({
-            rate: Number(item.rate),
+            rate: Number(item.rate) * 100,
             payDate: new Date(item.effectiveAt),
         }));
     }
