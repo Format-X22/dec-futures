@@ -11,9 +11,10 @@ type TFunding = Map<EMarketKey, number>;
 type TGroupedHistory = Array<{ time: string; DYDX: string; PERP: string }>;
 
 enum ETimeframe {
-    H1 = '1_Hour',
-    H8 = '8_Hours',
-    D1 = '1_Day',
+    CHOOSE = 'CHOOSE',
+    H1 = '1 hour',
+    H8 = '8 hours',
+    D1 = '1 day',
 }
 
 const EMPTY = '---';
@@ -75,48 +76,43 @@ export class FundingController {
             <table>
                 <thead>
                     <tr>
-                        <td>Pair</td>
-                        <td>${EMarketKey.DYDX} rate %</td>
-                        <td>${EMarketKey.PERP} rate %</td>
+                        <td rowspan='2'>Pair</td>
+                        <td colspan='3'>${EMarketKey.DYDX} rate %</td>
+                        <td colspan='3'>${EMarketKey.PERP} rate %</td>
+                    </tr>
+                    <tr>
+                        <td>1 hour</td>
+                        <td>8 hours</td>
+                        <td>Annual</td>
+                        <td>1 hour</td>
+                        <td>8 hours</td>
+                        <td>Annual</td>
                     </tr>
                 </thead>
                 <tbody>
                     ${Array.from(funding)
-                        .map(
-                            ([{ base, quote }, funding]) => `
-                        <tr>
-                            <td><a href='${base}-${quote}'>${base}-${quote}</a></td>
-                            <td>${funding.get(EMarketKey.DYDX) || EMPTY}</td>
-                            <td>${funding.get(EMarketKey.PERP) || EMPTY}</td>
-                        </tr>
-                    `,
-                        )
+                        .map(([{ base, quote }, funding]) => {
+                            const dydxFunding = funding.get(EMarketKey.DYDX) || 0;
+                            const perpFunding = funding.get(EMarketKey.PERP) || 0;
+
+                            return `
+                                <tr>
+                                    <td><a href='${base}-${quote}/${ETimeframe.CHOOSE}'>${base}-${quote}</a></td>
+                                    <td>${this.formatFunding(dydxFunding)}</td>
+                                    <td>${this.formatFunding(dydxFunding * 8)}</td>
+                                    <td>${this.formatFunding(dydxFunding * 24 * 356)}</td>
+                                    <td>${this.formatFunding(perpFunding)}</td>
+                                    <td>${this.formatFunding(perpFunding * 8)}</td>
+                                    <td>${this.formatFunding(perpFunding * 8 * 356)}</td>
+                                </tr>
+                    `;
+                        })
                         .join('')}
                 </tbody>
             </table>
             <script>
                 setTimeout(() => window.location.reload(), 3000);
             </script>`;
-    }
-
-    @Get(':pair')
-    async choiceTimeframe(@Param('pair') pair: string): Promise<string> {
-        return `
-            <title>DeCommas Futures Funding</title>
-            <base href='/futures/simple-demo/'/>
-            <style>
-                li {
-                    padding: 5px;
-                }
-            </style>
-            ${HEAD_LOGO}
-            <h1>Choice timeframe:</h1>
-            <ul>
-                <li><a href='${pair}/${ETimeframe.H1}'>${ETimeframe.H1}</a>
-                <li><a href='${pair}/${ETimeframe.H8}'>${ETimeframe.H8}</a>
-                <li><a href='${pair}/${ETimeframe.D1}'>${ETimeframe.D1}</a>
-            </ul>
-        `;
     }
 
     @Get(':pair/:timeframe')
@@ -141,28 +137,28 @@ export class FundingController {
 
         const dydxLastDay = await dydxCalc(1);
         let dydxLast7Days = await dydxCalc(7);
-        let dydxLast30Days = EMPTY;
-        let dydxLast90Days = EMPTY;
-        let dydxLastMax = EMPTY;
+        let dydxLast30Days = 0;
+        let dydxLast90Days = 0;
+        let dydxLastMax = 0;
 
         // Data in db may be incomplete, re-calc is the right way
         if (dydxLastDay === dydxLast7Days) {
-            dydxLast7Days = EMPTY;
+            dydxLast7Days = 0;
         } else {
             dydxLast30Days = await dydxCalc(30);
 
             if (dydxLast7Days === dydxLast30Days) {
-                dydxLast30Days = EMPTY;
+                dydxLast30Days = 0;
             } else {
                 dydxLast90Days = await dydxCalc(90);
 
                 if (dydxLast30Days === dydxLast90Days) {
-                    dydxLast90Days = EMPTY;
+                    dydxLast90Days = 0;
                 } else {
                     dydxLastMax = await dydxCalc(null);
 
                     if (dydxLast90Days === dydxLastMax) {
-                        dydxLastMax = EMPTY;
+                        dydxLastMax = 0;
                     }
                 }
             }
@@ -170,34 +166,32 @@ export class FundingController {
 
         const perpLastDay = await perpCalc(1);
         let perpLast7Days = await perpCalc(7);
-        let perpLast30Days = EMPTY;
-        let perpLast90Days = EMPTY;
-        let perpLastMax = EMPTY;
+        let perpLast30Days = 0;
+        let perpLast90Days = 0;
+        let perpLastMax = 0;
 
         // Data in db may be incomplete, re-calc is the right way
         if (perpLastDay === perpLast7Days) {
-            perpLast7Days = EMPTY;
+            perpLast7Days = 0;
         } else {
             perpLast30Days = await perpCalc(30);
 
             if (perpLast7Days === perpLast30Days) {
-                perpLast30Days = EMPTY;
+                perpLast30Days = 0;
             } else {
                 perpLast90Days = await perpCalc(90);
 
                 if (perpLast30Days === perpLast90Days) {
-                    perpLast90Days = EMPTY;
+                    perpLast90Days = 0;
                 } else {
                     perpLastMax = await perpCalc(null);
 
                     if (perpLast90Days === perpLastMax) {
-                        perpLastMax = EMPTY;
+                        perpLastMax = 0;
                     }
                 }
             }
         }
-
-        const groupedData = await this.getGroupedHistory(base, quote, timeframe);
 
         return `
             <title>DeCommas Futures Funding</title>
@@ -210,20 +204,111 @@ export class FundingController {
             </style>
             ${HEAD_LOGO}
             <h1>Statistics</h1>
+            <a href=''>&lt;-- back to pair list</a>
             <h2>Avg:</h2>
             <table>
                 <thead>
-                    <tr><td>Time</td><td>DYDX %</td><td>PERP %</td></tr>
+                    <tr>
+                        <td rowspan='2'>Time</td>
+                        <td colspan='3'>DYDX %</td>
+                        <td colspan='3'>PERP %</td>
+                    </tr>
+                    <tr>
+                        <td>In 1 hour</td>
+                        <td>In 8 hours</td>
+                        <td>In annual</td>
+                        <td>In 1 hour</td>
+                        <td>In 8 hours</td>
+                        <td>In annual</td>
+                    </tr>
                 </thead>
                 <tbody>                  
-                    <tr><td>Last day     </td><td> ${dydxLastDay}    </td><td> ${perpLastDay}    </td></tr>
-                    <tr><td>Last 7 days  </td><td> ${dydxLast7Days}  </td><td> ${perpLast7Days}  </td></tr>
-                    <tr><td>Last 30 days </td><td> ${dydxLast30Days} </td><td> ${perpLast30Days} </td></tr>
-                    <tr><td>Last 90 days </td><td> ${dydxLast90Days} </td><td> ${perpLast90Days} </td></tr>
-                    <tr><td>Last MAX     </td><td> ${dydxLastMax}    </td><td> ${perpLastMax}    </td></tr>
+                    <tr>
+                        <td>Last day</td>
+                        <td>${this.formatFunding(dydxLastDay)}</td>
+                        <td>${this.formatFunding(dydxLastDay * 8)}</td>
+                        <td>${this.formatFunding(dydxLastDay * 24 * 365)}</td>
+                        <td>${this.formatFunding(perpLastDay)}</td>
+                        <td>${this.formatFunding(perpLastDay * 8)}</td>
+                        <td>${this.formatFunding(perpLastDay * 24 * 365)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last 7 days</td>
+                        <td>${this.formatFunding(dydxLast7Days)}</td>
+                        <td>${this.formatFunding(dydxLast7Days * 8)}</td>
+                        <td>${this.formatFunding(dydxLast7Days * 24 * 365)}</td>
+                        <td>${this.formatFunding(perpLast7Days)}</td>
+                        <td>${this.formatFunding(perpLast7Days * 8)}</td>
+                        <td>${this.formatFunding(perpLast7Days * 24 * 365)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last 30 days</td>
+                        <td>${this.formatFunding(dydxLast30Days)}</td>
+                        <td>${this.formatFunding(dydxLast30Days * 8)}</td>
+                        <td>${this.formatFunding(dydxLast30Days * 24 * 365)}</td>
+                        <td>${this.formatFunding(perpLast30Days)}</td>
+                        <td>${this.formatFunding(perpLast30Days * 8)}</td>
+                        <td>${this.formatFunding(perpLast30Days * 24 * 365)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last 90 days</td>
+                        <td>${this.formatFunding(dydxLast90Days)}</td>
+                        <td>${this.formatFunding(dydxLast90Days * 8)}</td>
+                        <td>${this.formatFunding(dydxLast90Days * 24 * 365)}</td>
+                        <td>${this.formatFunding(perpLast90Days)}</td>
+                        <td>${this.formatFunding(perpLast90Days * 8)}</td>
+                        <td>${this.formatFunding(perpLast90Days * 24 * 365)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last MAX</td>
+                        <td>${this.formatFunding(dydxLastMax)}</td>
+                        <td>${this.formatFunding(dydxLastMax * 8)}</td>
+                        <td>${this.formatFunding(dydxLastMax * 24 * 365)}</td>
+                        <td>${this.formatFunding(perpLastMax)}</td>
+                        <td>${this.formatFunding(perpLastMax * 8)}</td>
+                        <td>${this.formatFunding(perpLastMax * 24 * 365)}</td>
+                    </tr>
                 </tbody>
             </table>
-            <h2>History group by "${timeframe}" chunks:</h2>
+            <h2>History${timeframe !== ETimeframe.CHOOSE ? `group by "${timeframe}" chunks` : ''}:</h2>
+            ${this.makeChooseTimeframeFragment(pairString, timeframe)}
+            ${timeframe !== ETimeframe.CHOOSE ? await this.makeHistoryFragment(base, quote, timeframe) : ''}
+            <script>
+                setTimeout(() => window.location.reload(), 7000);
+            </script>
+        `;
+    }
+
+    private makeChooseTimeframeFragment(pairString: string, timeframe: ETimeframe): string {
+        return `
+            <style>
+                .current-timeframe {
+                    background-color: #ecebeb;
+                }
+            </style>
+            <h4>Timeframe:</h4>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class='${timeframe === ETimeframe.H1 ? 'current-timeframe' : ''}'>
+                            <a href='${pairString}/${ETimeframe.H1}'>${ETimeframe.H1}</a> 
+                        </td>
+                        <td class='${timeframe === ETimeframe.H8 ? 'current-timeframe' : ''}'>
+                            <a href='${pairString}/${ETimeframe.H8}'>${ETimeframe.H8}</a>
+                        </td>
+                        <td class='${timeframe === ETimeframe.D1 ? 'current-timeframe' : ''}'>
+                            <a href='${pairString}/${ETimeframe.D1}'>${ETimeframe.D1}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+    }
+
+    private async makeHistoryFragment(base, quote, timeframe): Promise<string> {
+        const groupedData = await this.getGroupedHistory(base, quote, timeframe);
+
+        return `
             <table>
                 <thead>
                     <tr><td>Time</td><td>DYDX %</td><td>PERP %</td></tr>
@@ -241,14 +326,11 @@ export class FundingController {
                         .join('')}
                 </tbody>
             </table>
-            <script>
-                setTimeout(() => window.location.reload(), 7000);
-            </script>
         `;
     }
 
     private makeAvgCalculator(base: string, quote: string, marketKey: EMarketKey) {
-        return async (daysAgo: number | null): Promise<string> => {
+        return async (daysAgo: number | null): Promise<number> => {
             const filter: FilterQuery<FundingDocument> = { base, quote, marketKey };
 
             if (daysAgo) {
@@ -258,7 +340,7 @@ export class FundingController {
             const data = await this.fundingModel.find(filter, { rate: true });
             const sum = data.reduce((sum, { rate }) => sum + rate, 0) / data.length;
 
-            return String(sum || EMPTY);
+            return sum || 0;
         };
     }
 
@@ -279,8 +361,8 @@ export class FundingController {
 
             result.push({
                 time,
-                DYDX: String(dydxRate || EMPTY),
-                PERP: String(perpRate || EMPTY),
+                DYDX: String((dydxRate && dydxRate.toFixed(4)) || EMPTY),
+                PERP: String((perpRate && perpRate.toFixed(4)) || EMPTY),
             });
 
             switch (timeframe) {
@@ -321,5 +403,15 @@ export class FundingController {
         return lodash
             .chunk<Pick<Funding, 'rate'>>(data, chunkSize)
             .map((chunk) => chunk.reduce((sum, { rate }) => sum + rate, 0));
+    }
+
+    private formatFunding(value: number | undefined | null): string {
+        value = Number(value);
+
+        if (Number.isFinite(value) && value) {
+            return value.toFixed(4);
+        }
+
+        return EMPTY;
     }
 }
