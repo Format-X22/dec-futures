@@ -20,8 +20,8 @@ const API = 'https://api.dydx.exchange';
 const API_CALL_DELAY = 1000;
 
 @Injectable()
-export class DxDyService extends AbstractMarketService {
-    public name = EMarketKey.DXDY;
+export class DydxService extends AbstractMarketService {
+    public name = EMarketKey.DYDX;
     private web3 = new Web3();
     private client: DydxClient;
 
@@ -29,6 +29,13 @@ export class DxDyService extends AbstractMarketService {
         super(...args);
 
         this.client = new DydxClient(API, { web3: this.web3 });
+    }
+
+    async onModuleInit(): Promise<void> {
+        const fixedKey = 'DXDY' as EMarketKey;
+
+        await this.fundingModel.updateMany({ marketKey: fixedKey }, { $set: { marketKey: EMarketKey.DYDX } });
+        await this.fundingModel.updateMany({ quote: 'USD' }, { $set: { quote: 'USDC' } });
     }
 
     async iteration(): Promise<void> {
@@ -60,13 +67,14 @@ export class DxDyService extends AbstractMarketService {
 
     private async syncToLastKnownDate(pair: DydxMarket, date: Date): Promise<void> {
         const history: THistory = [];
+        let prevDate: Date;
         let lastDate: Date | null = null;
 
         const currentMarketData = await this.client.public.getMarkets(pair);
         const pairData = currentMarketData.markets[pair];
 
         history.push({
-            rate: Number(pairData.nextFundingRate),
+            rate: Number(pairData.nextFundingRate) * 100,
             payDate: new Date(pairData.nextFundingAt),
         });
 
@@ -80,12 +88,20 @@ export class DxDyService extends AbstractMarketService {
 
             const isHistoryContainsNotOnlyNextFundingData = history.length > 1;
 
+            prevDate = history[history.length - 1].payDate;
+
             if (isHistoryContainsNotOnlyNextFundingData) {
                 history.pop();
             }
 
-            history.push(...currentHistory);
             lastDate = currentHistory[currentHistory.length - 1].payDate;
+
+            if (prevDate.valueOf() === lastDate.valueOf()) {
+                await this.saveHistory(pair, history);
+                break;
+            }
+
+            history.push(...currentHistory);
 
             if (lastDate <= date) {
                 await this.saveHistory(pair, history);
@@ -98,19 +114,26 @@ export class DxDyService extends AbstractMarketService {
 
     private async saveHistory(pair: DydxMarket, history: THistory): Promise<void> {
         for (const item of history) {
-            const [base, quote] = pair.split('-');
+            const base = pair.split('-')[0];
+            let quote = pair.split('-')[1];
+
+            if (quote === 'USD') {
+                quote = 'USDC';
+            }
+
+            const query = {
+                marketKey: EMarketKey.DYDX,
+                base,
+                quote,
+                payDate: item.payDate,
+            };
 
             await this.fundingModel.updateOne(
-                {
-                    payDate: item.payDate,
-                },
+                query,
                 {
                     $set: {
+                        ...query,
                         rate: item.rate,
-                        payDate: item.payDate,
-                        marketKey: EMarketKey.DXDY,
-                        base,
-                        quote,
                     },
                 },
                 {
@@ -136,7 +159,7 @@ export class DxDyService extends AbstractMarketService {
         const result = await this.client.public.getHistoricalFunding(options);
 
         return result.historicalFunding.map((item) => ({
-            rate: Number(item.rate),
+            rate: Number(item.rate) * 100,
             payDate: new Date(item.effectiveAt),
         }));
     }

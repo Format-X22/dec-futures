@@ -53,6 +53,14 @@ export class PerpService extends AbstractMarketService {
     public name = EMarketKey.PERP;
     private ammToPair: Map<string, string> = new Map();
 
+    async onModuleInit(): Promise<void> {
+        const data = await this.fundingModel.find({ marketKey: EMarketKey.PERP }, { _id: true, base: true });
+
+        for (const { _id, base } of data) {
+            await this.fundingModel.updateOne({ _id }, { $set: { base: base.replace('USDC', '') } });
+        }
+    }
+
     async iteration(): Promise<void> {
         if (!this.ammToPair.size) {
             await this.syncAmmPairs();
@@ -85,7 +93,7 @@ export class PerpService extends AbstractMarketService {
             result.push({
                 marketKey: EMarketKey.PERP,
                 payDate: moment().startOf('hour').add(1, 'hour').add(1, 'minute').utc().toDate(),
-                base: pair,
+                base: pair.replace('USDC', ''),
                 quote: V1_QUOTE,
                 rate,
             });
@@ -116,7 +124,7 @@ export class PerpService extends AbstractMarketService {
                 result.push({
                     marketKey: EMarketKey.PERP,
                     payDate: new Date(Number(rawData.timestamp) * 1000),
-                    base: this.ammToPair.get(String(rawData.amm)),
+                    base: this.ammToPair.get(String(rawData.amm)).replace('USDC', ''),
                     quote: V1_QUOTE,
                     rate: new BigNumber(rawData.rate).div(V1_DECIMALS_DIV).toNumber(),
                 });
@@ -140,6 +148,7 @@ export class PerpService extends AbstractMarketService {
                 {
                     marketKey: fundingData.marketKey,
                     base: fundingData.base,
+                    quote: fundingData.quote,
                     payDate: fundingData.payDate,
                 },
                 { $set: { ...fundingData } },
