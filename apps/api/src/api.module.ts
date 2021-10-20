@@ -6,6 +6,7 @@ import { FundingResolver } from './funding/funding.resolver';
 import { FundingService } from './funding/funding.service';
 import { Funding, FundingSchema } from '@app/shared/funding.schema';
 import { FundingController } from './funding/funding.controller';
+import { ViewModule } from '../../api/src/view/view.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { FundingController } from './funding/funding.controller';
             }),
             inject: [ConfigService],
         }),
+        ViewModule,
         MongooseModule.forFeature([{ name: Funding.name, schema: FundingSchema }]),
         GraphQLModule.forRoot({
             installSubscriptionHandlers: true,

@@ -1,0 +1,50 @@
+@use "sass:math";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Manrope, serif;
+    font-size: 12px;
+    background: #000000;
+    color: #fff;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    &::-webkit-scrollbar {
+      padding: 2px;
+      width: 12px;
+      height: 12px;
+      background: #000000;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+      background: #303030;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+}
+
+// TODO Fix this?
+.hidden {
+    display: none !important;
+}
+
+// TODO Fix this!
+.TODO-order-book-column-size {
+    width: calc(100% / 4) !important;
+}
+
+.TODO-order-book-column-size-scroll-fix {
+  padding-right: 13px;
+}
+
+@for $i from 1 through 10 {
+    .swiper-slide:nth-child(#{$i}) {
+        .ant-skeleton-button {
+            animation-delay: math.div($i, 10) + s;
+        }
+    }
+}
