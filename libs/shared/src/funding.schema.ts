@@ -35,5 +35,32 @@ export const FundingSchema: mongoose.Schema<FundingDocument> = SchemaFactory.cre
     Funding,
 );
 
+FundingSchema.index({ payDate: -1 });
+FundingSchema.index({ base: 1, quote: 1 });
+
 @ObjectType()
 export class FundingList extends makePaginated<Funding>(Funding) {}
+
+@ObjectType()
+export class FundingAverage {
+    @Field((): typeof EMarketKey => EMarketKey)
+    marketKey: EMarketKey;
+
+    @Field()
+    base: string;
+
+    @Field()
+    quote: string;
+
+    @Field()
+    D1: number;
+
+    @Field()
+    D7: number;
+
+    @Field()
+    M1: number;
+
+    @Field()
+    M3: number;
+}
