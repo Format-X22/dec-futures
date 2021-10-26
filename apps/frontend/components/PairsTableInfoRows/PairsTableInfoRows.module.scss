@@ -1,0 +1,13 @@
+.pairs-table-info-rows {
+  .left-blue-border {
+    border-left: 1px solid rgba(104, 106, 246, 0.2);
+  }
+  .left-green-border {
+    border-left: 1px solid rgba(82, 187, 221, 0.2);
+  }
+  &.border-bottom {
+    td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+}

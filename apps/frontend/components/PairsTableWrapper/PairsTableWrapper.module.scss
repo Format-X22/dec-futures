@@ -1,0 +1,19 @@
+.pairs-table-wrapper {
+  width: 100%;
+  overflow: auto;
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    td {
+      background: rgba(255, 255, 255, 0.04);
+      &:first-child {
+        background: #212121;
+        position: sticky;
+        left: 0;
+      }
+    }
+  }
+}

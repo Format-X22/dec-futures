@@ -1,4 +1,4 @@
 module.exports = {
-    basePath: '',
+    basePath: process.env.NODE_ENV === 'production' ? '/futures' : '',
     webpack5: true,
 };

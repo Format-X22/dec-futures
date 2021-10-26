@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { FundingResolver } from './funding/funding.resolver';
@@ -13,6 +15,10 @@ import { ViewModule } from '../../api/src/view/view.module';
         ConfigModule.forRoot({
             isGlobal: true,
             cache: true,
+        }),
+        ServeStaticModule.forRoot({
+            rootPath: join(process.cwd(), './apps/frontend/public'),
+            serveRoot: '/futures/public',
         }),
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
