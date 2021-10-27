@@ -1,38 +1,25 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+
 import PairsTableWrapper from '@/components/PairsTableWrapper/PairsTableWrapper';
 import PairsTableHead from '@/components/PairsTableHead/PairsTableHead';
 import Row from './Row';
 
 import styles from './AllPairsSection.module.scss';
+import { AppContext } from '@/components/AppContext/AppContext';
 
-const pairsInfo = [
-    {
-        pair: 'BTC/USDT',
-        columns: ['0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%'],
-    },
-    {
-        pair: 'BTC/USDT',
-        columns: ['0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%'],
-    },
-    {
-        pair: 'BTC/USDT',
-        columns: ['0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%'],
-    },
-    {
-        pair: 'BTC/USDT',
-        columns: ['0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%'],
-    },
-    {
-        pair: 'BTC/USDT',
-        columns: ['0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%', '0.0532%'],
-    },
-];
 const AllPairsSection = () => {
+    const { allFundings } = useContext(AppContext);
+    const [search, setSearch] = useState('');
     return (
         <section className={styles['all-pairs-section']}>
             <div className={styles['controls']}>
                 <div className={styles['search']}>
-                    <input type='text' placeholder='All Pairs' />
+                    <input
+                        type='text'
+                        placeholder='All Pairs'
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                     <img src='/futures/public/search.svg' alt='search' />
                 </div>
                 <button type='button'>
@@ -42,9 +29,16 @@ const AllPairsSection = () => {
             <PairsTableWrapper>
                 <PairsTableHead variant='all-pairs' />
                 <tbody>
-                    {pairsInfo.map(({ pair, columns }, index) => (
-                        <Row key={`all-pairs-${pair}-${index}`} pair={pair} index={index} columns={columns} />
-                    ))}
+                    {Object.keys(allFundings)
+                        .filter((pair) => pair.includes(search))
+                        .map((pair, index) => (
+                            <Row
+                                key={`all-pairs-${pair}-${index}`}
+                                pair={pair}
+                                index={index}
+                                funding={allFundings[pair]}
+                            />
+                        ))}
                 </tbody>
             </PairsTableWrapper>
         </section>

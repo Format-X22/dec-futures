@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 
 import PairSelector from '@/components/PairSelector/PairSelector';
 import { Text } from '@/components/Text/Text';
 import CustomLink from '@/components/CustomLink/CustomLink';
+import { AppContext } from '@/components/AppContext/AppContext';
 import { headerLinks } from '../Layout';
 
 import styles from './HeaderSection.module.scss';
@@ -20,6 +21,7 @@ const navBarLinks = [
 ];
 
 const HeaderSection = () => {
+    const { lowestFundingRate, biggestFundingRate } = useContext(AppContext);
     return (
         <header className={styles['header-section']}>
             <div className={styles['company']}>
@@ -52,15 +54,21 @@ const HeaderSection = () => {
                     </div>
                     <div className={styles['info-item']}>
                         <div>
-                            <img src='/futures/public/perpetual.png' alt='perpetual' />
-                            <Text tagStyle='h2'>0.041%</Text>
+                            <img
+                                src={`/futures/public/${lowestFundingRate.marketKey.toLowerCase()}.png`}
+                                alt={lowestFundingRate.marketKey.toLowerCase()}
+                            />
+                            <Text tagStyle='h2'>{lowestFundingRate.rate.toFixed(4)}%</Text>
                         </div>
                         <Text tagStyle='p'>Lowest funding rate</Text>
                     </div>
                     <div className={styles['info-item']}>
                         <div>
-                            <img src='/futures/public/dydx.png' alt='dydx' />
-                            <Text tagStyle='h2'>0.072%</Text>
+                            <img
+                                src={`/futures/public/${biggestFundingRate.marketKey.toLowerCase()}.png`}
+                                alt={biggestFundingRate.marketKey.toLowerCase()}
+                            />
+                            <Text tagStyle='h2'>{biggestFundingRate.rate.toFixed(4)}%</Text>
                         </div>
                         <Text tagStyle='p'>Highest funding rate</Text>
                     </div>

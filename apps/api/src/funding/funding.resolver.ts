@@ -33,7 +33,7 @@ export class FundingResolver {
     constructor(private fundingService: FundingService) {}
 
     @Query((): typeof Funding => Funding, { nullable: true })
-    async currentFundingFor(@Args() args: MarketFilterArgs): Promise<Funding | null> {
+    async currentFundingFor(@Args() args: MarketFilterArgs): Promise<Array<Funding | null>> {
         return this.fundingService.getCurrentForMarket(args);
     }
 

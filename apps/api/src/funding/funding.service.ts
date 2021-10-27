@@ -11,18 +11,19 @@ import * as moment from 'moment';
 export class FundingService {
     constructor(@InjectModel(Funding.name) private fundingModel: Model<FundingDocument>) {}
 
-    async getCurrentForMarket({ marketKey }: MarketFilterArgs): Promise<Funding | null> {
-        return this.fundingModel.findOne({ marketKey }, null, { sort: { payDate: -1 } });
+    async getCurrentForMarket({ marketKey }: MarketFilterArgs): Promise<Array<Funding | null>> {
+        const latestFunding = await this.fundingModel.findOne({ marketKey }, null, { sort: { payDate: -1 } });
+        return this.fundingModel.find({ marketKey, payDate: latestFunding.payDate }, null);
     }
 
     async getCurrentForAllMarkets(): Promise<Array<Funding>> {
-        const result: Array<Funding> = [];
+        let result: Array<Funding> = [];
 
         for (const marketKey of Object.values(EMarketKey)) {
-            const data: Funding | null = await this.getCurrentForMarket({ marketKey });
+            const data: Array<Funding | null> = await this.getCurrentForMarket({ marketKey });
 
             if (data) {
-                result.push(data);
+                result = [...result, ...data];
             }
         }
 

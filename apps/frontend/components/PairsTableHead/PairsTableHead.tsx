@@ -14,10 +14,10 @@ const IconArrowUpRight = () => {
 };
 
 interface IProps {
-    variant: 'selected-pair' | 'all-pairs';
+    variant?: 'selected-pair' | 'all-pairs';
 }
 
-const PairsTableHead: FC<IProps> = ({ variant }) => {
+const PairsTableHead: FC<IProps> = ({ variant = 'selected-pair' }) => {
     const isAllPairsVariant = variant === 'all-pairs';
     return (
         <thead className={cn(styles['pairs-table-head'], styles[variant])}>
@@ -35,7 +35,7 @@ const PairsTableHead: FC<IProps> = ({ variant }) => {
                 </td>
                 <td colSpan={3} className={styles['perp-td']}>
                     <div>
-                        <img src='/futures/public/perpetual.png' alt='perpetual' />
+                        <img src='/futures/public/perp.png' alt='perpetual' />
                         <Text tagStyle='p'>Perpetual Protocol</Text> <IconArrowUpRight />
                     </div>
                 </td>

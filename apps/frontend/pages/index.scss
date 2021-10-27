@@ -29,26 +29,15 @@ body {
     a {
       text-decoration: none;
     }
-}
 
-// TODO Fix this?
-.hidden {
-    display: none !important;
-}
-
-// TODO Fix this!
-.TODO-order-book-column-size {
-    width: calc(100% / 4) !important;
-}
-
-.TODO-order-book-column-size-scroll-fix {
-  padding-right: 13px;
-}
-
-@for $i from 1 through 10 {
-    .swiper-slide:nth-child(#{$i}) {
-        .ant-skeleton-button {
-            animation-delay: math.div($i, 10) + s;
-        }
+    input {
+      color: #fff;
+      &:active, &:focus {
+        outline: none;
+      }
+    }
+    input, button {
+      background: #1B1B1B;
+      border: 0;
     }
 }
