@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 /> */}
             </Head>
             <ApolloProvider client={client}>
-                <AppProvider dataFundings={dataFundings}>
+                <AppProvider initialDataFundings={dataFundings}>
                     <Component {...pageProps} />
                 </AppProvider>
             </ApolloProvider>
