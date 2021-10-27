@@ -55,7 +55,7 @@ const HeaderSection = () => {
                 <div className={styles['info']}>
                     <div className={styles['info-item']}>
                         <Text tagStyle='h6' fontWeight={600}>
-                            Best funding rates
+                            Funding rate limits
                         </Text>
                         <CustomLink href='funding-rates'>Learn more</CustomLink>
                     </div>
