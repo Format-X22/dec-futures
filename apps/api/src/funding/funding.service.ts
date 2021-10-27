@@ -11,18 +11,42 @@ import * as moment from 'moment';
 export class FundingService {
     constructor(@InjectModel(Funding.name) private fundingModel: Model<FundingDocument>) {}
 
-    async getCurrentForMarket({ marketKey }: MarketFilterArgs): Promise<Funding | null> {
-        return this.fundingModel.findOne({ marketKey }, null, { sort: { payDate: -1 } });
+    async getCurrentForMarket({ marketKey }: MarketFilterArgs): Promise<Array<Funding | null>> {
+        const quotes: Array<string> = await this.fundingModel.distinct('quote');
+        const pairs: Array<{ base: string; quote: string }> = [];
+        const fundingsList: Array<Funding> = [];
+
+        for (const quote of quotes) {
+            const bases: Array<string> = await this.fundingModel.distinct('base', { quote });
+
+            for (const base of bases) {
+                pairs.push({ base, quote });
+            }
+        }
+        for (const pair of pairs) {
+            const fundingData = await this.fundingModel.findOne(
+                {
+                    ...pair,
+                    marketKey,
+                },
+                null,
+                { sort: { payDate: -1 } },
+            );
+            if (fundingData) {
+                fundingsList.push(fundingData);
+            }
+        }
+        return fundingsList;
     }
 
     async getCurrentForAllMarkets(): Promise<Array<Funding>> {
         const result: Array<Funding> = [];
 
         for (const marketKey of Object.values(EMarketKey)) {
-            const data: Funding | null = await this.getCurrentForMarket({ marketKey });
+            const data: Array<Funding | null> = await this.getCurrentForMarket({ marketKey });
 
             if (data) {
-                result.push(data);
+                result.push(...data);
             }
         }
 

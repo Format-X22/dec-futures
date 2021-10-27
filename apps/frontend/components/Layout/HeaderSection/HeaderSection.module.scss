@@ -1,0 +1,158 @@
+.header-section {
+  .company {
+    background: #1B1B1B;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 24px;
+      height: 24px;
+      margin: 16px;
+    }
+  }
+  .links {
+    display: flex;
+    a {
+      img {
+        width: 24px;
+        height: 24px;
+        margin: 16px;
+      }
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+      &:hover {
+        background: #2F2F2F;
+      }
+    }
+  }
+
+  .menu {
+    background: #1B1B1B;
+    padding: 37px 0 0 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > div:first-child {
+      margin-top: 40px;
+    }
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+  }
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    &:first-child {
+      align-items: flex-start;
+      justify-content: center;
+    }
+    > div {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      margin-right: 8px;
+    }
+    h6 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      width: 100%;
+      font-size: 16px;
+      line-height: 22px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.64);
+    }
+  }
+  
+  .nav-bar {
+    display: flex;
+    background: #1B1B1B;
+    padding-left: 24px;
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #FFFFFF;
+      margin-right: 40px;
+      border-bottom: 1px solid #22D091;
+      padding-bottom: 16px;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.24);
+
+      span {
+        padding: 3px 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 31px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.32px;
+        color: rgba(255, 255, 255, 0.24);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-section {
+    .info-item {
+      padding: 36px 18px;
+      h2 {
+        font-size: 30px;
+        line-height: 45px;
+      }
+      a, h6, p {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .header-section {
+    .controls {
+      > div:first-child {
+        margin-top: 0;
+      }
+    }
+    .menu {
+      flex-direction: column;
+    }
+    .info {
+      flex-wrap: wrap;
+    }
+    .info-item {
+      border-right: 0;
+      padding-top: 18px;
+      padding-left: 0;
+      p {
+        text-align: left;
+      }
+      &:first-child {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+.all-pairs-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  .controls {
+    display: flex;
+    .search {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 16px;
+      input {
+        width: 100%;
+      }
+    }
+    button {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px;
+    }
+  }
+  table {
+    width: 100%;
+    button {
+      cursor: pointer;
+      background: transparent;
+      img {
+        transition: all 0.3s;
+      }
+    }
+    tr.opened {
+      td {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-bottom: 0;
+        &:first-child {
+          background: #212121 !important;
+        }
+      }
+      button {
+        img {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .left-blue-border {
+    border-left: 1px solid rgba(104, 106, 246, 0.2);
+  }
+  .left-green-border {
+    border-left: 1px solid rgba(82, 187, 221, 0.2);
+  }
+}

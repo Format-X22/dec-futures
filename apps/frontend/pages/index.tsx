@@ -1,5 +1,12 @@
+import { Layout } from '@/components/Layout/Layout';
+import HomePage from '@/page-components/HomePage/HomePage';
+
 const Index = () => {
-    return <div>Index Page</div>;
+    return (
+        <Layout>
+            <HomePage />
+        </Layout>
+    );
 };
 
 export default Index;
