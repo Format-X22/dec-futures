@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+
+import { useOnClickOutside } from 'hooks/useClickOutside';
 import { Text } from '@/components/Text/Text';
 import PairsTableWrapper from '@/components/PairsTableWrapper/PairsTableWrapper';
 import PairsTableHead from '@/components/PairsTableHead/PairsTableHead';
@@ -8,6 +10,7 @@ import { AppContext } from '@/components/AppContext/AppContext';
 import { MARKETS } from 'dtos/Markets';
 
 import styles from './SelectedPair.module.scss';
+import CustomLink from '@/components/CustomLink/CustomLink';
 
 const SelectedPair = () => {
     const { selectedFunding } = useContext(AppContext);
@@ -20,14 +23,31 @@ const SelectedPair = () => {
         rates[MARKETS.PERP] * 8,
         rates[MARKETS.PERP] * 365,
     ];
+
+    const [showTooltip, setShowTooltip] = useState(false);
+    const ref = useRef<HTMLButtonElement>(null);
+    useOnClickOutside(ref, () => setShowTooltip(false));
     return (
         <section className={styles['selected-pair']}>
             <div className={styles['header']}>
                 <Text tagStyle='h5' tag='p'>
-                    Pair with the biggest funding rate difference <img src='/futures/public/info.svg' alt='info' />
+                    Pair with the biggest funding rate difference{' '}
+                    <button type='button' onClick={() => setShowTooltip(!showTooltip)} ref={ref}>
+                        <img src='/futures/public/info.svg' alt='info' />
+                        {showTooltip && (
+                            <div className={styles['tooltip']}>
+                                <div className={styles['arrow']} />
+                                <Text tagStyle='p'>
+                                    If the funding rate difference is big enough, it would be considered an arbitrage
+                                    opportunity between two DEXs
+                                </Text>
+                                <CustomLink href=''>Learn more about funding rates</CustomLink>
+                            </div>
+                        )}
+                    </button>
                 </Text>
                 <Text tagStyle='h2'>
-                    <img src={`/futures/public/coin/${base}.svg`} />
+                    <img src={`/futures/public/coin/${base.toLowerCase()}.svg`} />
                     <span>{base}</span>
                     <span>/{quote}</span>
                 </Text>

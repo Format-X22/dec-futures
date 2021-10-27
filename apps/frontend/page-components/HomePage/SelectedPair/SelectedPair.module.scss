@@ -7,10 +7,41 @@
       display: flex;
       align-items: center;
 
-      img {
+      button {
+        position: relative;
+        cursor: pointer;
         margin-left: 8px;
+      }
+      img {
         width: 20px;
         height: 20px;
+      }
+    }
+    .tooltip {
+      position: absolute;
+      width: 332px;
+      bottom: 40px;
+      left: -80px;
+      background: #2F2F2F;
+      box-shadow: 0px 12px 20px #1B1B1B;
+      padding: 16px;
+      p {
+        text-align: left;
+        margin-bottom: 16px;
+      }
+      a {
+        text-align: left;
+        width: 100%;
+        display: inline-block;
+      }
+      .arrow {
+        background: #2F2F2F;
+        position: absolute;
+        left: 86px;
+        bottom: -10px;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
       }
     }
     h2 {
