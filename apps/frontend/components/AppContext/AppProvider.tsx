@@ -16,11 +16,12 @@ const GET_CURRENT_FUNDINGS = gql`
 `;
 
 interface IAppProviderProps {
+    dataFundings: any;
     children: ReactNode;
 }
 
-export const AppProvider: FC<IAppProviderProps> = ({ children }) => {
-    const { data: dataFundings } = useQuery(GET_CURRENT_FUNDINGS);
+export const AppProvider: FC<IAppProviderProps> = ({ dataFundings, children }) => {
+    // const { data: dataFundings } = useQuery(GET_CURRENT_FUNDINGS);
     const [trackingFunding, setTrackingFunding] = useState(defaultFunding);
 
     const { map, selectedFunding } = useMemo(() => {

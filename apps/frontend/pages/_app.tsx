@@ -8,15 +8,16 @@ import { AppProvider } from '@/components/AppContext/AppProvider';
 import './index.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const { metaTags, dataFundings } = pageProps;
     return (
         <>
             <Head>
                 <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width' />
                 <title>DeCommas Futures</title>
-                {/* {metaTags &&
+                {metaTags &&
                     Object.keys(metaTags).map((tagName) => (
                         <meta key={`meta-tag-${tagName}`} property={tagName} content={metaTags[tagName]} />
-                    ))} */}
+                    ))}
                 <link rel='icon' href='/futures/public/futures-colored.svg' />
                 <link
                     href='https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap'
@@ -35,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 /> */}
             </Head>
             <ApolloProvider client={client}>
-                <AppProvider>
+                <AppProvider dataFundings={dataFundings}>
                     <Component {...pageProps} />
                 </AppProvider>
             </ApolloProvider>

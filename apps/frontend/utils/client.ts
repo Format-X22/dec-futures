@@ -1,8 +1,14 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+const urlList = {
+    production: 'https://decommas.io/futures/api/graphql',
+    stage: 'https://stage.decommas.io/futures/api/graphql',
+    development: 'http://localhost:3100/futures/api/graphql',
+};
+
 const httpLink = createHttpLink({
-    uri: '/futures/api/graphql',
+    uri: urlList[process.env.NODE_ENV],
 });
 
 const authLink = setContext((_, { headers }) => {
