@@ -5,7 +5,7 @@ import PairsTableHead from '@/components/PairsTableHead/PairsTableHead';
 import PairsTableRow from '@/components/PairsTableRow/PairsTableRow';
 import PairsTableInfoRows from '@/components/PairsTableInfoRows/PairsTableInfoRows';
 import { AppContext } from '@/components/AppContext/AppContext';
-import { MARKET_ENUM } from 'dtos/Markets';
+import { MARKETS } from 'dtos/Markets';
 
 import styles from './SelectedPair.module.scss';
 
@@ -13,12 +13,12 @@ const SelectedPair = () => {
     const { selectedFunding } = useContext(AppContext);
     const { base, quote, rates } = selectedFunding;
     const columns = [
-        rates[MARKET_ENUM.DYDX],
-        rates[MARKET_ENUM.DYDX] * 8,
-        rates[MARKET_ENUM.DYDX] * 365,
-        rates[MARKET_ENUM.PERP],
-        rates[MARKET_ENUM.PERP] * 8,
-        rates[MARKET_ENUM.PERP] * 365,
+        rates[MARKETS.DYDX],
+        rates[MARKETS.DYDX] * 8,
+        rates[MARKETS.DYDX] * 365,
+        rates[MARKETS.PERP],
+        rates[MARKETS.PERP] * 8,
+        rates[MARKETS.PERP] * 365,
     ];
     return (
         <section className={styles['selected-pair']}>
@@ -27,7 +27,7 @@ const SelectedPair = () => {
                     Pair with the biggest funding rate difference <img src='/futures/public/info.svg' alt='info' />
                 </Text>
                 <Text tagStyle='h2'>
-                    <img src='/futures/public/coin/btc.png' />
+                    <img src={`/futures/public/coin/${base}.svg`} />
                     <span>{base}</span>
                     <span>/{quote}</span>
                 </Text>

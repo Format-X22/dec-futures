@@ -10,7 +10,7 @@ export type TextTags = 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 
 export interface ITextProps {
     tagStyle: TextTags;
     tag?: TextTags;
-    color?: 'white' | 'grey';
+    color?: 'white' | 'grey' | 'green';
     fontWeight?: 700 | 600 | 500 | 400;
     className?: string;
     dangerouslySetInnerHTML?: string;

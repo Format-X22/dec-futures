@@ -12,22 +12,22 @@ export const footerLinks = [
     {
         title: 'discord',
         icon: '/futures/public/discord.svg',
-        link: '',
+        link: 'https://discord.gg/FyENCJt8nY',
     },
     {
         title: 'telegram',
         icon: '/futures/public/telegram.svg',
-        link: '',
+        link: 'https://t.me/decommas',
     },
     {
         title: 'twitter',
         icon: '/futures/public/twitter.svg',
-        link: '',
+        link: 'https://twitter.com/decommas',
     },
     {
         title: 'medium',
         icon: '/futures/public/medium.svg',
-        link: '',
+        link: 'https://medium.com/@DeCommas',
     },
 ];
 

@@ -1,4 +1,4 @@
-export const MARKET_ENUM = {
-    DYDX: 'DYDX',
-    PERP: 'PERP',
-};
+export enum MARKETS {
+    DYDX = 'DYDX',
+    PERP = 'PERP',
+}

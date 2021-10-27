@@ -2,17 +2,10 @@ import React, { FC } from 'react';
 import cn from 'classnames';
 
 import { Text } from '@/components/Text/Text';
+import CustomLink from '../CustomLink/CustomLink';
+import { IconArrowUpRight } from '../IconArrowUpRight/IconArrowUpRight';
 
 import styles from './PairsTableHead.module.scss';
-
-const IconArrowUpRight = () => {
-    return (
-        <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path d='M5 3V4H11.295L3 12.295L3.705 13L12 4.705V11H13V3H5Z' fill='white' fill-opacity='0.4' />
-        </svg>
-    );
-};
-
 interface IProps {
     variant?: 'selected-pair' | 'all-pairs';
 }
@@ -28,16 +21,16 @@ const PairsTableHead: FC<IProps> = ({ variant = 'selected-pair' }) => {
                     </Text>
                 </td>
                 <td colSpan={3} className={styles['dydx-td']}>
-                    <div>
+                    <CustomLink href='https://dydx.exchange'>
                         <img src='/futures/public/dydx.png' alt='dydx' />
                         <Text tagStyle='p'>dydx</Text> <IconArrowUpRight />
-                    </div>
+                    </CustomLink>
                 </td>
                 <td colSpan={3} className={styles['perp-td']}>
-                    <div>
+                    <CustomLink href='https://www.perp.fi'>
                         <img src='/futures/public/perp.png' alt='perpetual' />
                         <Text tagStyle='p'>Perpetual Protocol</Text> <IconArrowUpRight />
-                    </div>
+                    </CustomLink>
                 </td>
             </tr>
             <tr>

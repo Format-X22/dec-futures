@@ -8,6 +8,8 @@ import { AppContext } from '@/components/AppContext/AppContext';
 import { headerLinks } from '../Layout';
 
 import styles from './HeaderSection.module.scss';
+import { MARKETS } from 'dtos/Markets';
+import { IconArrowUpRight } from '@/components/IconArrowUpRight/IconArrowUpRight';
 
 const navBarLinks = [
     {
@@ -19,6 +21,11 @@ const navBarLinks = [
         soon: true,
     },
 ];
+
+const marketLinks = {
+    [MARKETS.DYDX]: 'https://dydx.exchange',
+    [MARKETS.PERP]: 'https://www.perp.fi',
+};
 
 const HeaderSection = () => {
     const { lowestFundingRate, biggestFundingRate } = useContext(AppContext);
@@ -60,7 +67,18 @@ const HeaderSection = () => {
                             />
                             <Text tagStyle='h2'>{lowestFundingRate.rate.toFixed(4)}%</Text>
                         </div>
-                        <Text tagStyle='p'>Lowest funding rate</Text>
+                        <Text tagStyle='p' color='grey'>
+                            Lowest funding rate
+                        </Text>
+                        <CustomLink
+                            href={marketLinks[lowestFundingRate.marketKey] || ''}
+                            className={styles['market-link']}
+                        >
+                            <Text tagStyle='p' color='green'>
+                                {lowestFundingRate.marketKey}
+                            </Text>
+                            <IconArrowUpRight />
+                        </CustomLink>
                     </div>
                     <div className={styles['info-item']}>
                         <div>
@@ -70,7 +88,18 @@ const HeaderSection = () => {
                             />
                             <Text tagStyle='h2'>{biggestFundingRate.rate.toFixed(4)}%</Text>
                         </div>
-                        <Text tagStyle='p'>Highest funding rate</Text>
+                        <Text tagStyle='p' color='grey'>
+                            Highest funding rate
+                        </Text>
+                        <CustomLink
+                            href={marketLinks[biggestFundingRate.marketKey] || ''}
+                            className={styles['market-link']}
+                        >
+                            <Text tagStyle='p' color='green'>
+                                {biggestFundingRate.marketKey}
+                            </Text>
+                            <IconArrowUpRight />
+                        </CustomLink>
                     </div>
                 </div>
             </div>

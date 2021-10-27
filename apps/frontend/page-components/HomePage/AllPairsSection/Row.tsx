@@ -4,7 +4,7 @@ import { Text } from '@/components/Text/Text';
 import PairsTableRow from '@/components/PairsTableRow/PairsTableRow';
 import PairsTableInfoRows from '@/components/PairsTableInfoRows/PairsTableInfoRows';
 import { Funding } from 'dtos/Funding';
-import { MARKET_ENUM } from 'dtos/Markets';
+import { MARKETS } from 'dtos/Markets';
 
 import styles from './AllPairsSection.module.scss';
 
@@ -17,12 +17,12 @@ interface IProps {
 const Row: FC<IProps> = ({ pair, index, funding }) => {
     const [openInfo, setOpenInfo] = useState(false);
     const columns = [
-        funding.rates[MARKET_ENUM.DYDX],
-        funding.rates[MARKET_ENUM.DYDX] * 8,
-        funding.rates[MARKET_ENUM.DYDX] * 365,
-        funding.rates[MARKET_ENUM.PERP],
-        funding.rates[MARKET_ENUM.PERP] * 8,
-        funding.rates[MARKET_ENUM.PERP] * 365,
+        funding.rates[MARKETS.DYDX],
+        funding.rates[MARKETS.DYDX] * 8,
+        funding.rates[MARKETS.DYDX] * 365,
+        funding.rates[MARKETS.PERP],
+        funding.rates[MARKETS.PERP] * 8,
+        funding.rates[MARKETS.PERP] * 365,
     ];
     return (
         <>

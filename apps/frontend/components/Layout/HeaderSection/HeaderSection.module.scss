@@ -77,10 +77,30 @@
 
     p {
       width: 100%;
-      font-size: 16px;
-      line-height: 22px;
       text-align: center;
-      color: rgba(255, 255, 255, 0.64);
+    }
+
+    .market-link {
+      margin-top: 10px;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+
+      p {
+        margin-right: 2px;
+      }
+      svg {
+        width: 24px;
+        path {
+          fill: #4CD9A6;
+        }
+      }
+    }
+    &:not(:first-child):hover {
+      background: rgba(255, 255, 255, 0.04);
+      .market-link {
+          opacity: 1;
+      }
     }
   }
   
