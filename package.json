@@ -12,6 +12,8 @@
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start:agg": "nest start aggregator",
     "start:api": "NODE_ENV=development nest start api",
+    "start:stage:agg": "NODE_ENV=stage node dist/apps/aggregator/main.js",
+    "start:stage:api": "NODE_ENV=stage node dist/apps/api/main.js",
     "start:prod:agg": "NODE_ENV=production node dist/apps/aggregator/main.js",
     "start:prod:api": "NODE_ENV=production node dist/apps/api/main.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

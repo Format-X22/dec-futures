@@ -30,26 +30,26 @@ module.exports = {
             name: 'futures_api_staging',
             script: 'npm',
             interpreter: 'none',
-            args: 'run start:prod:api',
+            args: 'run start:stage:api',
             max_memory_restart: '1024M',
             env: {
-                NODE_ENV: 'production',
+                NODE_ENV: 'stage',
             },
             env_production: {
-                NODE_ENV: 'production',
+                NODE_ENV: 'stage',
             },
         },
         {
             name: 'futures_agg_staging',
             script: 'npm',
             interpreter: 'none',
-            args: 'run start:prod:agg',
+            args: 'run start:stage:agg',
             max_memory_restart: '1024M',
             env: {
-                NODE_ENV: 'production',
+                NODE_ENV: 'stage',
             },
             env_production: {
-                NODE_ENV: 'production',
+                NODE_ENV: 'stage',
             },
         },
     ],
