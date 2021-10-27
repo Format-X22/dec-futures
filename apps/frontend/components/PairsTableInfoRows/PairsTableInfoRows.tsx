@@ -27,7 +27,7 @@ const titles = { D1: 'Last 24 h', D7: 'Last 7 days', M1: 'Last month', M3: 'Last
 
 const PairsTableInfoRows: FC<IProps> = ({ pair }) => {
     const [base, quote] = pair.split('/');
-    const { loading, data: dataAverage } = useQuery(GET_AVERAGE, {
+    const { data: dataAverage } = useQuery(GET_AVERAGE, {
         variables: { base, quote },
     });
 

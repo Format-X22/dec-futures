@@ -20,7 +20,7 @@ interface IAppProviderProps {
 }
 
 export const AppProvider: FC<IAppProviderProps> = ({ children }) => {
-    const { loading, data: dataFundings } = useQuery(GET_CURRENT_FUNDINGS);
+    const { data: dataFundings } = useQuery(GET_CURRENT_FUNDINGS);
 
     const { map, lowestFundingRate, biggestFundingRate, selectedFunding } = useMemo(() => {
         const map: { [pair: string]: Funding } = {};
@@ -39,7 +39,7 @@ export const AppProvider: FC<IAppProviderProps> = ({ children }) => {
             rates: {},
         };
         if (dataFundings) {
-            dataFundings.currentFundingForAll.map(({ base, quote, rate, marketKey, payDate }) => {
+            dataFundings.currentFundingForAll.map(({ base, quote, rate, marketKey }) => {
                 const pair = `${base}/${quote}`;
                 lowestFundingRate =
                     lowestFundingRate.rate > rate
