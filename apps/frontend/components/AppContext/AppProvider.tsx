@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { AppContext, defaultFunding, defaultFundingRate } from './AppContext';
+import { AppContext, defaultFunding } from './AppContext';
 import { Funding } from 'dtos/Funding';
 
 const GET_CURRENT_FUNDINGS = gql`
