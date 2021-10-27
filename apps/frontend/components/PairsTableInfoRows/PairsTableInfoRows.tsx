@@ -84,7 +84,7 @@ const PairsTableInfoRows: FC<IProps> = ({ pair }) => {
                             }
                         >
                             <Text tagStyle='p' color='grey'>
-                                {value.toFixed(4)}%
+                                {value ? `${value.toFixed(4)}%` : '-'}
                             </Text>
                         </td>
                     ))}
