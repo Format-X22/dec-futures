@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, ReactNode } from 'react';
 
 import cn from 'classnames';
@@ -26,17 +26,17 @@ export const Text: FC<ITextProps> = ({
     dangerouslySetInnerHTML,
     children,
 }) => {
-    let Tag = 'span';
+    let Tag: keyof JSX.IntrinsicElements = 'span';
 
     if (['p', 'p2'].includes(tagStyle)) {
         Tag = 'p';
     }
     if (tagStyle.includes('h')) {
-        Tag = tagStyle;
+        Tag = tagStyle as keyof JSX.IntrinsicElements;
     }
 
     if (tag) {
-        Tag = tag;
+        Tag = tag as keyof JSX.IntrinsicElements;
     }
 
     const combinedClassName = cn(
@@ -50,13 +50,8 @@ export const Text: FC<ITextProps> = ({
     return (
         <>
             {dangerouslySetInnerHTML ? (
-                <Tag
-                    // @ts-ignore
-                    className={combinedClassName}
-                    dangerouslySetInnerHTML={{ __html: dangerouslySetInnerHTML }}
-                />
+                <Tag className={combinedClassName} dangerouslySetInnerHTML={{ __html: dangerouslySetInnerHTML }} />
             ) : (
-                // @ts-ignore
                 <Tag className={combinedClassName}>{children}</Tag>
             )}
         </>
