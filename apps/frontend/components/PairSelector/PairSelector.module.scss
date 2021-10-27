@@ -28,6 +28,7 @@
   .selector {
     position: absolute;
     background: #2F2F2F;
+    z-index: 50;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
     min-width: 350px;
     .form-group {
@@ -49,10 +50,31 @@
       }
     }
     .options {
+      max-height: 350px;
+      overflow-y: auto;      
+      &::-webkit-scrollbar-thumb {
+        background: transparent;
+      }
+      &::-webkit-scrollbar {
+        padding: 2px;
+        width: 12px;
+        height: 12px;
+        background: #2F2F2F;
+      }
+      &:hover::-webkit-scrollbar-thumb {
+        background: #c1c9d2;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
       button {
         padding: 16px;
+        width: 100%;
         background: #2F2F2F;
         color: rgba(255, 255, 255, 0.64);
+        &:hover {
+          background: rgba(255, 255, 255, 0.04);
+        }
       }
     }
   }

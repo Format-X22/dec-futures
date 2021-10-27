@@ -1,5 +1,5 @@
 import { Text } from '@/components/Text/Text';
-import CustomLink from '@/components/CustomLink/CustomLink';
+// import CustomLink from '@/components/CustomLink/CustomLink';
 
 import styles from './HeaderSection.module.scss';
 
@@ -13,15 +13,9 @@ const HeaderSection = () => {
                     </Text>
                     <Text tagStyle='p' color='grey'>
                         If positive, longs pay shorts; if negative, shorts pay longs.{' '}
-                        <CustomLink href='/learn-more'>Learn more</CustomLink>
+                        {/* <CustomLink href='/learn-more'>Learn more</CustomLink> */}
                     </Text>
                 </div>
-                {/* <button type='button'>
-                    <Text tagStyle='p' color='grey'>
-                        Updated 1 min ago
-                    </Text>
-                    <img src='/futures/public/reload.svg' alt='reload' />
-                </button> */}
             </div>
         </section>
     );

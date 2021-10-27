@@ -1,33 +1,29 @@
 import { createContext } from 'react';
 import { Funding } from 'dtos/Funding';
+import { MARKETS } from 'dtos/Markets';
 
 interface IAppContextProps {
     allFundings: { [pair: string]: Funding };
+    trackingFunding: Funding;
+    setTrackingFunding: (v: Funding) => void;
     selectedFunding: Funding;
-    lowestFundingRate: {
-        marketKey: string;
-        rate: number;
-    };
-    biggestFundingRate: {
-        marketKey: string;
-        rate: number;
-    };
 }
+
+export const defaultFunding = {
+    base: '',
+    quote: '',
+    diff: 0,
+    rates: {},
+};
+
+export const defaultFundingRate = {
+    marketKey: MARKETS.DYDX,
+    rate: 0,
+};
 
 export const AppContext = createContext<IAppContextProps>({
     allFundings: {},
-    selectedFunding: {
-        base: '',
-        quote: '',
-        diff: 0,
-        rates: {},
-    },
-    lowestFundingRate: {
-        marketKey: 'dydx',
-        rate: 0,
-    },
-    biggestFundingRate: {
-        marketKey: 'dydx',
-        rate: 0,
-    },
+    trackingFunding: defaultFunding,
+    setTrackingFunding: () => undefined,
+    selectedFunding: defaultFunding,
 });

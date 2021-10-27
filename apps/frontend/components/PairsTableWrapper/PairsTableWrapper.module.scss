@@ -8,11 +8,12 @@
     overflow-x: auto;
     white-space: nowrap;
     td {
-      background: rgba(255, 255, 255, 0.04);
+      background: #242424;
       &:first-child {
         background: #212121;
         position: sticky;
         left: 0;
+        width: 218px;
       }
     }
   }

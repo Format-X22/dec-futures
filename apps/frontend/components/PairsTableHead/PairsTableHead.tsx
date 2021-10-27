@@ -4,8 +4,12 @@ import cn from 'classnames';
 import { Text } from '@/components/Text/Text';
 import CustomLink from '../CustomLink/CustomLink';
 import { IconArrowUpRight } from '../IconArrowUpRight/IconArrowUpRight';
+import { getMarketLink } from 'utils/getMarketLink';
+import { MARKETS } from 'dtos/Markets';
+import { getMarketName } from 'utils/getMarketName';
 
 import styles from './PairsTableHead.module.scss';
+
 interface IProps {
     variant?: 'selected-pair' | 'all-pairs';
 }
@@ -21,15 +25,15 @@ const PairsTableHead: FC<IProps> = ({ variant = 'selected-pair' }) => {
                     </Text>
                 </td>
                 <td colSpan={3} className={styles['dydx-td']}>
-                    <CustomLink href='https://dydx.exchange'>
+                    <CustomLink href={getMarketLink(MARKETS.DYDX)}>
                         <img src='/futures/public/dydx.png' alt='dydx' />
-                        <Text tagStyle='p'>dydx</Text> <IconArrowUpRight />
+                        <Text tagStyle='p'>{getMarketName(MARKETS.DYDX)}</Text> <IconArrowUpRight />
                     </CustomLink>
                 </td>
                 <td colSpan={3} className={styles['perp-td']}>
-                    <CustomLink href='https://www.perp.fi'>
+                    <CustomLink href={getMarketLink(MARKETS.PERP)}>
                         <img src='/futures/public/perp.png' alt='perpetual' />
-                        <Text tagStyle='p'>Perpetual Protocol</Text> <IconArrowUpRight />
+                        <Text tagStyle='p'>{getMarketName(MARKETS.PERP)}</Text> <IconArrowUpRight />
                     </CustomLink>
                 </td>
             </tr>

@@ -19,10 +19,10 @@ const Row: FC<IProps> = ({ pair, index, funding }) => {
     const columns = [
         funding.rates[MARKETS.DYDX],
         funding.rates[MARKETS.DYDX] * 8,
-        funding.rates[MARKETS.DYDX] * 365,
+        funding.rates[MARKETS.DYDX] * 24 * 365,
         funding.rates[MARKETS.PERP],
         funding.rates[MARKETS.PERP] * 8,
-        funding.rates[MARKETS.PERP] * 365,
+        funding.rates[MARKETS.PERP] * 24 * 365,
     ];
     return (
         <>

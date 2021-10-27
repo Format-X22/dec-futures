@@ -18,10 +18,10 @@ const SelectedPair = () => {
     const columns = [
         rates[MARKETS.DYDX],
         rates[MARKETS.DYDX] * 8,
-        rates[MARKETS.DYDX] * 365,
+        rates[MARKETS.DYDX] * 24 * 365,
         rates[MARKETS.PERP],
         rates[MARKETS.PERP] * 8,
-        rates[MARKETS.PERP] * 365,
+        rates[MARKETS.PERP] * 24 * 365,
     ];
 
     const [showTooltip, setShowTooltip] = useState(false);

@@ -44,7 +44,14 @@ const PairsTableInfoRows: FC<IProps> = ({ pair }) => {
             const perpValue = averageByMarket.perp[prop];
             return {
                 title: titles[prop],
-                columns: [dydxValue, dydxValue * 8, dydxValue * 365, perpValue, perpValue * 8, perpValue * 365],
+                columns: [
+                    dydxValue,
+                    dydxValue * 8,
+                    dydxValue * 24 * 365,
+                    perpValue,
+                    perpValue * 8,
+                    perpValue * 24 * 365,
+                ],
             };
         });
     }, [dataAverage]);

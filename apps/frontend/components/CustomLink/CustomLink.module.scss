@@ -7,10 +7,12 @@
   &:hover {
     color: #4CD9A6;
     p {
+      transition: all 0.3s;
       color: #4CD9A6;
     }
     svg {
       path {
+        transition: all 0.3s;
         fill: #4CD9A6;
       }
     }

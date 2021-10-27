@@ -33,7 +33,7 @@
 
   .menu {
     background: #1B1B1B;
-    padding: 37px 0 0 24px;
+    padding: 0 0 0 24px;
     display: flex;
     justify-content: space-between;
   }
@@ -52,16 +52,36 @@
     display: flex;
     align-items: center;
   }
-  .info-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  a {
+    .info-item {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+  .info-item-wrapper {
+    padding: 48px 0;
+    transition: all 0.3s;
     &:first-child {
       align-items: flex-start;
       justify-content: center;
     }
+    &:not(:first-child):hover {
+      background: rgba(255, 255, 255, 0.04);
+      .market-link {
+          opacity: 1;
+      }
+      > p {
+        color: rgba(255, 255, 255, 0.64);
+      }
+      .info-item {
+        border-color: transparent;
+      }
+    }
+  }
+  .info-item {
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     > div {
       display: flex;
       align-items: center;
@@ -85,6 +105,7 @@
       opacity: 0;
       display: flex;
       align-items: center;
+      transition: all 0.3s;
 
       p {
         margin-right: 2px;
@@ -94,12 +115,6 @@
         path {
           fill: #4CD9A6;
         }
-      }
-    }
-    &:not(:first-child):hover {
-      background: rgba(255, 255, 255, 0.04);
-      .market-link {
-          opacity: 1;
       }
     }
   }
