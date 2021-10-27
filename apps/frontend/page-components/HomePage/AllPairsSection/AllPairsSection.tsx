@@ -30,7 +30,7 @@ const AllPairsSection = () => {
                 <PairsTableHead variant='all-pairs' />
                 <tbody>
                     {Object.keys(allFundings)
-                        .filter((pair) => pair.includes(search))
+                        .filter((pair) => pair.toLowerCase().includes(search.toLowerCase()))
                         .map((pair, index) => (
                             <Row
                                 key={`all-pairs-${pair}-${index}`}
