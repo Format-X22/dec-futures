@@ -33,10 +33,10 @@ module.exports = {
             args: 'run start:stage:api',
             max_memory_restart: '1024M',
             env: {
-                NODE_ENV: 'stage',
+                NODE_ENV: 'test',
             },
             env_production: {
-                NODE_ENV: 'stage',
+                NODE_ENV: 'test',
             },
         },
         {
@@ -46,10 +46,10 @@ module.exports = {
             args: 'run start:stage:agg',
             max_memory_restart: '1024M',
             env: {
-                NODE_ENV: 'stage',
+                NODE_ENV: 'test',
             },
             env_production: {
-                NODE_ENV: 'stage',
+                NODE_ENV: 'test',
             },
         },
     ],
