@@ -9,7 +9,7 @@ const urlList = {
 };
 
 const httpLink = createHttpLink({
-    uri: urlList[process.env.NODE_ENV],
+    uri: urlList[process.env.APP_ENV || process.env.NODE_ENV],
 });
 
 const authLink = setContext((_, { headers }) => {

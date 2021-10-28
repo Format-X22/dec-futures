@@ -34,9 +34,11 @@ module.exports = {
             max_memory_restart: '1024M',
             env: {
                 NODE_ENV: 'test',
+                APP_ENV: 'stage',
             },
             env_production: {
                 NODE_ENV: 'test',
+                APP_ENV: 'staging',
             },
         },
         {
