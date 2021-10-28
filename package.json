@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start:dev-db": "docker compose up",
-    "build:all": "NODE_ENV=production nest build aggregator && NODE_ENV=production nest build api && nest build shared  && cd apps/frontend && NODE_ENV=production next build",
+    "build:all:production": "NODE_ENV=production nest build aggregator && NODE_ENV=production nest build api && nest build shared  && cd apps/frontend && NODE_ENV=production next build",
     "build:all:stage": "NODE_ENV=stage nest build aggregator && NODE_ENV=stage nest build api && nest build shared  && cd apps/frontend && NODE_ENV=stage next build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start:agg": "nest start aggregator",

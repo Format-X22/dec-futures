@@ -36,7 +36,8 @@ In dev mode use vars from example file.
 
 ```bash
 # build all
-$ yarn run build:all
+$ yarn run build:all:stage
+$ yarn run build:all:production
 
 # start db (dev)
 $ yarn run start:dev-db

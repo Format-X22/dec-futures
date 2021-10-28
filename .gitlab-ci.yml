@@ -41,7 +41,7 @@ build_production:
     - yarn
     - mv .env.prod .env
     - cat .env
-    - yarn build:all
+    - yarn build:all:production
     - mkdir bundle
     - mv dist bundle/
     - mv apps bundle/
