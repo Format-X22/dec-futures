@@ -5,6 +5,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .hidden {
+      display: none;
+    }
   }
   .logo {
     display: flex;

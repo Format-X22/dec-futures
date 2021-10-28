@@ -45,6 +45,7 @@ const HeaderSection = () => {
     return (
         <header className={styles['header-section']}>
             <div className={styles['company']}>
+                <div className={styles['hidden']}>{process.env.NODE_ENV}</div>
                 <Link href='/'>
                     <a className={styles['logo']}>
                         <img src='/futures/public/futures-colored.svg' alt='Futures' />
