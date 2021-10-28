@@ -3,13 +3,13 @@ import { setContext } from '@apollo/client/link/context';
 
 const urlList = {
     // TODO fix prod url
-    production: 'https://stage.decommas.io/futures/api/graphql',
-    test: 'https://stage.decommas.io/futures/api/graphql',
+    production: 'https://decommas.io/futures/api/graphql',
+    stage: 'https://stage.decommas.io/futures/api/graphql',
     development: 'http://localhost:3100/futures/api/graphql',
 };
 
 const httpLink = createHttpLink({
-    uri: urlList[process.env.NODE_ENV],
+    uri: urlList[process.env.appEnv || process.env.NODE_ENV],
 });
 
 const authLink = setContext((_, { headers }) => {

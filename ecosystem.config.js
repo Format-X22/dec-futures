@@ -38,7 +38,6 @@ module.exports = {
             },
             env_production: {
                 NODE_ENV: 'test',
-                APP_ENV: 'staging',
             },
         },
         {
