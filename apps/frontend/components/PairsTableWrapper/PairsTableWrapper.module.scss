@@ -7,6 +7,10 @@
     border-spacing: 0;
     overflow-x: auto;
     white-space: nowrap;
+    thead {
+      position: sticky;
+      top: 0;
+    }
     td {
       background: #242424;
       &:first-child {
@@ -14,6 +18,18 @@
         position: sticky;
         left: 0;
         width: 218px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pairs-table-wrapper {
+    table {
+      td {
+        &:first-child {
+          min-width: 150px;
+        }
       }
     }
   }

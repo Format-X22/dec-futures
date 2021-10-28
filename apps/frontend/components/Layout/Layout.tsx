@@ -2,8 +2,6 @@ import React, { FC, ReactNode } from 'react';
 import FooterSection from './FooterSection/FooterSection';
 import HeaderSection from './HeaderSection/HeaderSection';
 
-import styles from './Layout.module.scss';
-
 interface IProps {
     children: ReactNode;
 }
@@ -42,10 +40,10 @@ export const headerLinks = [
 
 export const Layout: FC<IProps> = ({ children }) => {
     return (
-        <div className={styles['layout']}>
+        <>
             <HeaderSection />
             {children}
             <FooterSection />
-        </div>
+        </>
     );
 };

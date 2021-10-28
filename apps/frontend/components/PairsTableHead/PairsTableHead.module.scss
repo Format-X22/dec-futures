@@ -4,7 +4,7 @@
   }
   tr:first-child {
     td {
-      padding: 20px 24px;
+      padding: 20px 14px;
 
       > div, > a {
         display: flex;
@@ -44,6 +44,13 @@
   }
 
   &.all-pairs {
+    tr:first-child {
+      td:first-child {
+        p {
+          color: rgba(255, 255, 255, 0.24)
+        }
+      }
+    }
     tr:nth-child(2) {
       td {
         background: #242424;

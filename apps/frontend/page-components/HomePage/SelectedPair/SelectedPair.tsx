@@ -7,7 +7,7 @@ import PairsTableHead from '@/components/PairsTableHead/PairsTableHead';
 import PairsTableRow from '@/components/PairsTableRow/PairsTableRow';
 import PairsTableInfoRows from '@/components/PairsTableInfoRows/PairsTableInfoRows';
 import { AppContext } from '@/components/AppContext/AppContext';
-import CustomLink from '@/components/CustomLink/CustomLink';
+// import CustomLink from '@/components/CustomLink/CustomLink';
 import { MARKETS } from 'dtos/Markets';
 
 import styles from './SelectedPair.module.scss';
@@ -41,7 +41,7 @@ const SelectedPair = () => {
                                     If the funding rate difference is big enough, it would be considered an arbitrage
                                     opportunity between two DEXs
                                 </Text>
-                                <CustomLink href=''>Learn more about funding rates</CustomLink>
+                                {/* <CustomLink href=''>Learn more about funding rates</CustomLink> */}
                             </div>
                         )}
                     </button>

@@ -5,11 +5,16 @@ import { HistoryArgs, MarketFilterArgs, PairFilterArgs } from './funding.resolve
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Paginated } from '@app/shared/list.dto';
+import { SubscribeGroupArgs } from './subscribers.args';
+import { SubscribeResult, Subscribers, SubscribersDocument } from '@app/shared/subscribers.schema';
 import * as moment from 'moment';
 
 @Injectable()
 export class FundingService {
-    constructor(@InjectModel(Funding.name) private fundingModel: Model<FundingDocument>) {}
+    constructor(
+        @InjectModel(Funding.name) private fundingModel: Model<FundingDocument>,
+        @InjectModel(Subscribers.name) private subscribersModel: Model<SubscribersDocument>,
+    ) {}
 
     async getCurrentForMarket({ marketKey }: MarketFilterArgs): Promise<Array<Funding | null>> {
         const quotes: Array<string> = await this.fundingModel.distinct('quote');
@@ -69,6 +74,21 @@ export class FundingService {
         };
 
         return { data, pagination };
+    }
+
+    async subscribe({ email }: SubscribeGroupArgs): Promise<SubscribeResult> {
+        const result: Subscribers | null = await this.subscribersModel.findOne({ email });
+
+        if (result) {
+            return { success: true };
+        }
+
+        try {
+            await this.subscribersModel.create({ email, date: new Date() });
+            return { success: true };
+        } catch (error) {
+            return { success: false };
+        }
     }
 
     async getAverage({ base, quote }: PairFilterArgs): Promise<Array<FundingAverage>> {

@@ -134,6 +134,19 @@ const HeaderSection = () => {
                         </div>
                     </CustomLink>
                 </div>
+                <div className={styles['nav-bar']}>
+                    {navBarLinks.map(({ text, link, soon }, index) =>
+                        link ? (
+                            <Link key={`nav-bar-link-${index}`} href={link}>
+                                {text}
+                            </Link>
+                        ) : (
+                            <Text tagStyle='p' fontWeight={600} key={`nav-bar-link-${index}`}>
+                                {text} {soon && <span>Soon</span>}
+                            </Text>
+                        ),
+                    )}
+                </div>
             </div>
         </header>
     );

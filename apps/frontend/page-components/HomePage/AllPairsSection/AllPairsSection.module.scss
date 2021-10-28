@@ -1,6 +1,10 @@
 .all-pairs-section {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   .controls {
+    // position: sticky;
+    // top: 0;
+    // z-index: 20;
+    // background: #1B1B1B;
     display: flex;
     .search {
       display: flex;
@@ -10,8 +14,19 @@
       input {
         width: 100%;
       }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      button {
+        display: flex;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
     }
-    button {
+    > button {
       border-left: 1px solid rgba(255, 255, 255, 0.08);
       padding: 16px;
     }
@@ -23,6 +38,12 @@
       background: transparent;
       img {
         transition: all 0.3s;
+      }
+    }
+    td:first-child {
+      padding-left: 13px;
+       > p {
+        padding-left: 47px;
       }
     }
     tr.opened {

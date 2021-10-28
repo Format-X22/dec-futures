@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-
+import SubscribeForm from '@/components/SubscribeForm/SubscribeForm';
 import { Text } from '@/components/Text/Text';
 import { footerLinks } from '../Layout';
 import CustomLink from '../../CustomLink/CustomLink';
@@ -49,18 +49,7 @@ const FooterSection = () => {
                         ))}
                     </div>
                 </div>
-                <div className={styles['form']}>
-                    <Text tagStyle='h5' fontWeight={600}>
-                        Sign up for our newsletter
-                    </Text>
-                    <Text tagStyle='h5' tag='p'>
-                        Enter your email and stay up to date with the latest updates, news, guides and more.
-                    </Text>
-                    <div>
-                        <input type='text' placeholder='Your email...' />
-                        <button type='button'>Sign up</button>
-                    </div>
-                </div>
+                <SubscribeForm />
             </div>
             <div className={styles['row']}>
                 <Link href='/legal-info'>

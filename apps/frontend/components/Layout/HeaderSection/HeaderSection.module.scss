@@ -46,6 +46,10 @@
     > div:first-child {
       margin-top: 40px;
     }
+
+    > .nav-bar {
+      display: flex;
+    }
   }
 
   .info {
@@ -120,9 +124,8 @@
   }
   
   .nav-bar {
-    display: flex;
+    display: none;
     background: #1B1B1B;
-    padding-left: 24px;
     a {
       font-weight: 600;
       font-size: 16px;
@@ -151,6 +154,12 @@
 
 @media screen and (max-width: 768px) {
   .header-section {
+    .info-item-wrapper {
+      padding: 0;
+      &:first-child {
+        display: none;
+      }
+    }
     .info-item {
       padding: 36px 18px;
       h2 {
@@ -161,32 +170,55 @@
         font-size: 12px;
         line-height: 18px;
       }
+      .market-link {
+        opacity: 1;
+      }
     }
   }
 }
 
 @media screen and (max-width: 576px) {
   .header-section {
+    .links {
+      a {
+        img {
+          margin: 8px;
+        }
+      }
+    }
     .controls {
       > div:first-child {
-        margin-top: 0;
+        margin-top: 20px;
+      }
+
+      > .nav-bar {
+        display: none;
       }
     }
     .menu {
       flex-direction: column;
+      > .nav-bar {
+        display: flex;
+      }
     }
     .info {
       flex-wrap: wrap;
     }
     .info-item {
-      border-right: 0;
+      border-left: 0 !important; 
       padding-top: 18px;
       padding-left: 0;
+      align-items: flex-start;
       p {
         text-align: left;
       }
-      &:first-child {
-        display: none;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+      h2 {
+        font-size: 20px;
+        line-height: 24px;
       }
     }
   }

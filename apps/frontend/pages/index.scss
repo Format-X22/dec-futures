@@ -8,7 +8,6 @@ body {
     font-size: 12px;
     background: #000000;
     color: #fff;
-    overflow-x: hidden;
 
     &::-webkit-scrollbar-thumb {
       background: transparent;
@@ -40,5 +39,6 @@ body {
     input, button {
       background: #1B1B1B;
       border: 0;
+      padding: 0;
     }
 }

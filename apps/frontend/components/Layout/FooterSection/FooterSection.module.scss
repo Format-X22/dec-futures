@@ -60,53 +60,12 @@
       }
     }
   }
-
-  .form {
-    max-width: 36%;
-    h5 {
-      margin-bottom: 8px;
-    }
-    p {
-      margin-bottom: 32px;
-    }
-    > div {
-      display: flex;
-      align-items: center;
-      input, button {
-        border: 0;
-        font-size: 20px;
-        line-height: 28px;
-      }
-      input {
-        width: 100%;
-        padding: 12px 16px;
-        background: rgba(246, 246, 246, 0.08);
-      }
-      button {
-        white-space: nowrap;
-        padding: 11px 34px;
-        background: #4CD9A6;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .footer-section {
-    .form {
-      max-width: 50%;
-    }
-  }
 }
 
 @media screen and (max-width: 576px) {
   .footer-section {
     .row {
       flex-wrap: wrap;
-    }
-    .form {
-      margin-top: 36px;
-      max-width: 100%;
     }
   }
 }

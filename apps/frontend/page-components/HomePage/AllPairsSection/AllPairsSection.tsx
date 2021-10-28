@@ -20,7 +20,13 @@ const AllPairsSection = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <img src='/futures/public/search.svg' alt='search' />
+                    {search.length > 0 ? (
+                        <button type='button' onClick={() => setSearch('')}>
+                            <img src='/futures/public/close.svg' alt='close' />
+                        </button>
+                    ) : (
+                        <img src='/futures/public/search.svg' alt='search' />
+                    )}
                 </div>
                 <button type='button'>
                     <img src='/futures/public/download.svg' alt='download' />
