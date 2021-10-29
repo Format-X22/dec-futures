@@ -14,23 +14,22 @@ const AllPairsSection = () => {
         <section className={styles['all-pairs-section']}>
             <div className={styles['controls']}>
                 <div className={styles['search']}>
+                    <img src='/futures/public/search.svg' alt='search' />
                     <input
                         type='text'
-                        placeholder='All Pairs'
+                        placeholder='Search for a pair'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    {search.length > 0 ? (
+                    {search.length > 0 && (
                         <button type='button' onClick={() => setSearch('')}>
                             <img src='/futures/public/close.svg' alt='close' />
                         </button>
-                    ) : (
-                        <img src='/futures/public/search.svg' alt='search' />
                     )}
                 </div>
-                <button type='button'>
+                {/* <button type='button'>
                     <img src='/futures/public/download.svg' alt='download' />
-                </button>
+                </button> */}
             </div>
             <PairsTableWrapper>
                 <PairsTableHead variant='all-pairs' />

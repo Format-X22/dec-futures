@@ -20,9 +20,9 @@
       a {
         margin-right: 16px;
       }
-      p:last-child {
-        margin-left: auto;
-      }
+      // p:last-child {
+      //   margin-left: auto;
+      // }
     }
   }
 
@@ -42,8 +42,8 @@
         transform: rotate(-90deg);
       }
     }
-    > div {
-      margin-top: 8px;
+    > div:last-child {
+      margin-top: 32px;
       display: flex;
       align-items: center;
 

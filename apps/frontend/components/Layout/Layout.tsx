@@ -10,7 +10,7 @@ export const footerLinks = [
     {
         title: 'discord',
         icon: '/futures/public/discord.svg',
-        link: 'https://discord.gg/FyENCJt8nY',
+        link: 'https://discord.gg/c5Wmmyyj2w',
     },
     {
         title: 'telegram',

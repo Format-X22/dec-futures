@@ -16,7 +16,7 @@ const FooterSection = () => {
             </div>
             <div className={styles['row']}>
                 <div className={styles['links']}>
-                    <Link href='/contact-us'>
+                    {/* <Link href='/contact-us'>
                         <a>
                             <Text tagStyle='h5' tag='p' fontWeight={600}>
                                 Contact Us
@@ -38,7 +38,8 @@ const FooterSection = () => {
                             </Text>
                             <img src='/futures/public/caret.svg' />
                         </a>
-                    </Link>
+                    </Link> */}
+                    <SubscribeForm />
                     <div>
                         {footerLinks.map(({ title, icon, link }, index) => (
                             <Link href={link} key={`header-links-${index}`}>
@@ -49,10 +50,10 @@ const FooterSection = () => {
                         ))}
                     </div>
                 </div>
-                <SubscribeForm />
+                {/* <SubscribeForm /> */}
             </div>
             <div className={styles['row']}>
-                <Link href='/legal-info'>
+                {/* <Link href='/legal-info'>
                     <a>
                         <Text tagStyle='p2'>Legal info</Text>
                     </a>
@@ -61,7 +62,7 @@ const FooterSection = () => {
                     <a>
                         <Text tagStyle='p2'>Privacy Policy</Text>
                     </a>
-                </Link>
+                </Link> */}
                 <Text tagStyle='p2'>
                     Powered by <CustomLink href='https://decommas.io'>DeCommas</CustomLink>
                 </Text>
