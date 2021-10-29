@@ -100,10 +100,10 @@ export class FundingController {
                                     <td><a href='${base}-${quote}/${ETimeframe.CHOOSE}'>${base}-${quote}</a></td>
                                     <td>${this.formatFunding(dydxFunding)}</td>
                                     <td>${this.formatFunding(dydxFunding * 8)}</td>
-                                    <td>${this.formatFunding(dydxFunding * 24 * 356)}</td>
+                                    <td>${this.formatFunding(dydxFunding * 24 * 365)}</td>
                                     <td>${this.formatFunding(perpFunding)}</td>
                                     <td>${this.formatFunding(perpFunding * 8)}</td>
-                                    <td>${this.formatFunding(perpFunding * 8 * 356)}</td>
+                                    <td>${this.formatFunding(perpFunding * 8 * 365)}</td>
                                 </tr>
                     `;
                         })

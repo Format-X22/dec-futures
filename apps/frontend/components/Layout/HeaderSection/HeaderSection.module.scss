@@ -1,0 +1,233 @@
+.header-section {
+  .company {
+    background: #1B1B1B;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .hidden {
+      display: none;
+    }
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 24px;
+      height: 24px;
+      margin: 16px;
+    }
+  }
+  .links {
+    display: flex;
+    a {
+      img {
+        width: 24px;
+        height: 24px;
+        margin: 16px;
+      }
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+      &:hover {
+        background: #2F2F2F;
+      }
+    }
+  }
+
+  .menu {
+    background: #1B1B1B;
+    padding: 0 0 0 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > div:first-child {
+      margin-top: 40px;
+    }
+
+    > .nav-bar {
+      display: flex;
+    }
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+  }
+  a {
+    .info-item {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+  .info-item-wrapper {
+    padding: 48px 0;
+    transition: all 0.3s;
+    &:first-child {
+      align-items: flex-start;
+      justify-content: center;
+    }
+    &.has-funding-rate {
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+        .market-link {
+            opacity: 1;
+        }
+        > p {
+          color: rgba(255, 255, 255, 0.64);
+        }
+        .info-item {
+          border-color: transparent;
+        }
+      }
+    }
+  }
+  .info-item {
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > div {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      margin-right: 8px;
+    }
+    h6 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      width: 100%;
+      text-align: center;
+    }
+
+    .market-link {
+      margin-top: 10px;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+
+      p {
+        margin-right: 2px;
+      }
+      svg {
+        width: 24px;
+        path {
+          fill: #4CD9A6;
+        }
+      }
+    }
+  }
+  
+  .nav-bar {
+    display: none;
+    background: #1B1B1B;
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #FFFFFF;
+      margin-right: 40px;
+      border-bottom: 1px solid #22D091;
+      padding-bottom: 16px;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.24);
+
+      span {
+        padding: 3px 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 31px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.32px;
+        color: rgba(255, 255, 255, 0.24);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-section {
+    .info-item-wrapper {
+      padding: 0;
+      &:first-child {
+        display: none;
+      }
+      &.has-funding-rate {
+        .market-link {
+          opacity: 1;
+        }
+      }
+    }
+    .info-item {
+      padding: 36px 18px;
+      h2 {
+        font-size: 30px;
+        line-height: 45px;
+      }
+      a, h6, p {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .header-section {
+    .links {
+      a {
+        img {
+          margin: 8px;
+        }
+      }
+    }
+    .controls {
+      > div:first-child {
+        margin-top: 20px;
+      }
+
+      > .nav-bar {
+        display: none;
+      }
+    }
+    .menu {
+      flex-direction: column;
+      > .nav-bar {
+        display: flex;
+      }
+    }
+    .info {
+      flex-wrap: wrap;
+    }
+    .info-item {
+      border-left: 0 !important; 
+      padding-top: 18px;
+      padding-left: 0;
+      align-items: flex-start;
+      p {
+        text-align: left;
+      }
+      img {
+        width: 16px;
+        height: 16px;
+      }
+      h2 {
+        font-size: 20px;
+        line-height: 24px;
+      }
+    }
+  }
+}

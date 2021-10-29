@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -29,7 +30,12 @@
     ],
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/page-components/*": ["page-components/*"],
+      "@/public/*": ["public/*"],
+    }
   },
   "include": [
     "next-env.d.ts",
