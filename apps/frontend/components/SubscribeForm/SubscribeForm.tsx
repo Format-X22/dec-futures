@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import validator from 'validator';
 
 import { gql } from '@apollo/client';
@@ -20,7 +20,8 @@ const SubscribeForm = () => {
     const [error, setError] = useState<string>('');
     const [success, setSuccess] = useState<boolean>(false);
 
-    const send = async () => {
+    const onFormSubmit = async (e: FormEvent) => {
+        e.preventDefault();
         if (!validator.isEmail(email)) {
             setError('Please, enter valid email');
             return;
@@ -48,14 +49,14 @@ const SubscribeForm = () => {
                 Enter your email and stay up to date with the latest updates, news, guides and more.
             </Text>
             <div className={success ? styles['success'] : ''}>
-                <form>
+                <form onSubmit={onFormSubmit}>
                     <input
                         type='text'
                         placeholder='Your email...'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button type='button' onClick={send}>
+                    <button type='button' onClick={onFormSubmit}>
                         Sign up
                     </button>
                 </form>
