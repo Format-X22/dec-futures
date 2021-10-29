@@ -30,7 +30,7 @@
   .links {
     display: flex;
     flex-direction: column; 
-    margin-right: 80px;
+    // margin-right: 80px;
     > a {
       margin-bottom: 8px;
       display: flex;
@@ -64,8 +64,10 @@
 
 @media screen and (max-width: 576px) {
   .footer-section {
+    padding: 52px 20px;
     .row {
       flex-wrap: wrap;
+      margin-top: 32px;
     }
   }
 }
