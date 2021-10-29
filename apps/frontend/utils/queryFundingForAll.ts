@@ -14,5 +14,6 @@ export const queryFundingForAll = () => {
                 }
             }
         `,
+        fetchPolicy: 'no-cache',
     });
 };

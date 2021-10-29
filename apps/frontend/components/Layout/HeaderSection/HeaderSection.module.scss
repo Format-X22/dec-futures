@@ -72,16 +72,18 @@
       align-items: flex-start;
       justify-content: center;
     }
-    &:not(:first-child):hover {
-      background: rgba(255, 255, 255, 0.04);
-      .market-link {
-          opacity: 1;
-      }
-      > p {
-        color: rgba(255, 255, 255, 0.64);
-      }
-      .info-item {
-        border-color: transparent;
+    &.has-funding-rate {
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+        .market-link {
+            opacity: 1;
+        }
+        > p {
+          color: rgba(255, 255, 255, 0.64);
+        }
+        .info-item {
+          border-color: transparent;
+        }
       }
     }
   }
@@ -163,6 +165,11 @@
       &:first-child {
         display: none;
       }
+      &.has-funding-rate {
+        .market-link {
+          opacity: 1;
+        }
+      }
     }
     .info-item {
       padding: 36px 18px;
@@ -173,9 +180,6 @@
       a, h6, p {
         font-size: 12px;
         line-height: 18px;
-      }
-      .market-link {
-        opacity: 1;
       }
     }
   }
