@@ -12,16 +12,17 @@ import styles from './HeaderSection.module.scss';
 
 const HeaderSection = () => {
     const { trackingFunding } = useContext(AppContext);
-    const lowestFundingRate = Object.keys(trackingFunding.rates).reduce((acc, marketKey) => {
-        return acc.rate < trackingFunding.rates[marketKey]
+    const marketsList = Object.keys(trackingFunding.rates);
+    const lowestFundingRate = marketsList.reduce((acc, marketKey) => {
+        return acc.rate < trackingFunding.rates[marketKey] && (marketsList.length === 1 || acc.rate !== 0)
             ? acc
             : {
                   marketKey,
                   rate: trackingFunding.rates[marketKey],
               };
     }, defaultFundingRate);
-    const biggestFundingRate = Object.keys(trackingFunding.rates).reduce((acc, marketKey) => {
-        return acc.rate > trackingFunding.rates[marketKey]
+    const biggestFundingRate = marketsList.reduce((acc, marketKey) => {
+        return acc.rate > trackingFunding.rates[marketKey] && (marketsList.length === 1 || acc.rate !== 0)
             ? acc
             : {
                   marketKey,
