@@ -8,8 +8,7 @@ import { FundingResolver } from './funding/funding.resolver';
 import { SubscribersResolver } from './funding/subscribers.resolver';
 import { FundingService } from './funding/funding.service';
 import { Funding, FundingSchema } from '@app/shared/funding.schema';
-import { FundingController } from './funding/funding.controller';
-import { ViewModule } from '../../api/src/view/view.module';
+import { ViewModule } from './view/view.module';
 import { Subscribers, SubscribersSchema } from '@app/shared/subscribers.schema';
 
 @Module({
@@ -42,7 +41,7 @@ import { Subscribers, SubscribersSchema } from '@app/shared/subscribers.schema';
             path: '/futures/api',
         }),
     ],
-    controllers: [FundingController],
+    controllers: [],
     providers: [FundingService, FundingResolver, SubscribersResolver],
 })
 export class ApiModule {}
